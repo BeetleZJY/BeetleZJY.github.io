@@ -39,7 +39,7 @@
     
   <div class="cover-frame">
     <div class="bg-box">
-      <img src="/images/cover1.jpg" alt="image frame" />
+      <img src="/images/cover4.jpg" alt="image frame" />
     </div>
     <div class="cover-inner text-center text-white">
       <h1><a href="/">Hexo</a></h1>
@@ -71,7 +71,7 @@
        
 <h2 itemprop="name">
   <a class="article-title" href="/2020/01/02/hello-world/"
-    >Hello World</a
+    >手把手教你撸Hexo博客</a
   >
 </h2>
   
@@ -82,7 +82,7 @@
     
     <div class="article-meta">
       <a href="/2020/01/02/hello-world/" class="article-date">
-  <time datetime="2020-01-02T15:25:27.783Z" itemprop="datePublished">2020-01-02</time>
+  <time datetime="2020-01-02T15:25:00.000Z" itemprop="datePublished">2020-01-02</time>
 </a>
       
     </div>
@@ -97,19 +97,62 @@
       
 
       
-      <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+      <h2 id="Hexo简介"><a href="#Hexo简介" class="headerlink" title="Hexo简介"></a>Hexo简介</h2><p>作为前端技术栈，Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的生成静态网页托管在GitHub和Coding上，是搭建博客的首选框架。另外该框架对中文支持十分友好， 大家有兴趣可以<a href="https://hexo.io/" target="_blank" rel="noopener">官网</a>了解下。</p>
+<h3 id="Hexo搭建步骤"><a href="#Hexo搭建步骤" class="headerlink" title="Hexo搭建步骤"></a>Hexo搭建步骤</h3><h4 id="1-安装git"><a href="#1-安装git" class="headerlink" title="1.安装git"></a>1.安装git</h4><p>安装git用于部署代码上传博客静态文件。</p>
+<p><a href="https://npm.taobao.org/mirrors/git-for-windows/" target="_blank" rel="noopener">git淘宝镜像</a>， 下载速度快， window版本直接安装点击下一步完成安装即可。</p>
+<p>linux 安装， 安装完之后输入 git –version 返回版本安装成功。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure>
+<h3 id="2-安装nodejs"><a href="#2-安装nodejs" class="headerlink" title="2.安装nodejs"></a>2.安装nodejs</h3><p>做前端这行没人不清楚nodejs， 这是把js专门语言扩展到服务器语言的服务器。用于部署Hexo本地服务器调试。</p>
+<p><a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">官网</a>选择LTS版本，安装nodejs默认安装点击下一步即可。</p>
+<p>window下打开命令行win+R, 输入cmd输入node -v 返回对应版本， npm -v返回对应版本即安装成功。建议输入设置淘宝镜像， 方便npm包正常下载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>linux安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget https://nodejs.org/dist/v10.16.0/node-v10.16.0-linux-x64.tar.xz    // xz下载不用编译</span><br><span class="line">tar xf node-v10.16.0-linux-x64.tar.xz  </span><br><span class="line"><span class="built_in">cd</span> node-v10.16.0-linux-x64            // 进入解压目录</span><br><span class="line">node -v                               //返回版本号即安装成功</span><br><span class="line">npm -v                                // 返回版本号即安装成功</span><br><span class="line">ln -s /usr/<span class="built_in">local</span>/src/nodejs/bin/node  /usr/<span class="built_in">local</span>/bin/node       // 链接全局命令</span><br><span class="line">ln -s /usr/<span class="built_in">local</span>/src/nodejs/bin/npm   /usr/<span class="built_in">local</span>/bin/npm       //链接全局命令</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h3 id="3-安装Hexo"><a href="#3-安装Hexo" class="headerlink" title="3.安装Hexo"></a>3.安装Hexo</h3><p>git和nodejs安装好后，就可以安装hexo了，window下你可以找你喜欢地方先创建一个文件夹blog或者你喜欢名字文件夹，按住shift点击右键打开powerShell或者在文件路径地址栏输入cmd，然后cd到这个文件夹下（或者在这个文件夹下直接右键git bash打开）。</p>
+<p>输入命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>如果下载速度很慢或者请返回安装第二步安装nodejs 中设置淘宝镜像。</p>
+<p>接下来初始化项目</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init hexo // 会创建一个项目文件</span><br><span class="line"><span class="built_in">cd</span> hexo</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>等待安装完后，你会看到下面目录</p>
+<ul>
+<li>node_modules: 依赖包</li>
+<li>public：存放生成的页面</li>
+<li>scaffolds：生成文章的一些模板</li>
+<li>source：用来存放你的文章</li>
+<li>themes：主题</li>
+<li>_config.yml: 博客的配置文件（重点）</li>
+</ul>
+<h3 id="4-启动服务"><a href="#4-启动服务" class="headerlink" title="4.启动服务"></a>4.启动服务</h3><p>启动服务之前需要生成文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g // hexo generate 的简写</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<p>在浏览器输入localhost:4000就可以看到你生成的博客了。<br>到这里其实已经完成本地的博客部署。当然如果想要把博客放到网上，我们可以使用GitHub的仓库作为自己博客的地址， 那么我们继续走下一步。</p>
+<h3 id="5-github仓库准备"><a href="#5-github仓库准备" class="headerlink" title="5.github仓库准备"></a>5.github仓库准备</h3><p>你需要一个GitHub账户，如果没有的话去注册一个吧。</p>
+<p>注册完登录后，在GitHub.com中看到一个New repository，新建仓库 或者点击你的头像下拉有一个your repository 点击进去新建仓库。</p>
+<p>要想访问并且上传博客文件，必须创建一个和你用户名相同的仓库，后面加.github.io，比如xxx.github.io新建作为新的仓库。只有这样，将来要部署到GitHub page的时候，才会被识别，也就是xxxx.github.io，其中xxx就是你注册GitHub的用户名。</p>
+<h3 id="6-生成SSH添加到GitHub"><a href="#6-生成SSH添加到GitHub" class="headerlink" title="6.生成SSH添加到GitHub"></a>6.生成SSH添加到GitHub</h3><p>在目录文件下右键打开git bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"yourname"</span></span><br><span class="line">git config --global user.email <span class="string">"youremail"</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>这里的yourname输入你的GitHub用户名，youremail输入你GitHub的邮箱。这样GitHub才能知道你是不是对应它的账户。</p>
+<p>输入后检查你的输入是否成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure>
+
+<p>然后创建SSH,一直按住enter回车键</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"youremail"</span></span><br></pre></td></tr></table></figure>
+
+<p>这个时候它会告诉你已经生成了.ssh的文件夹。按照命令中的地址，在你的电脑中找到这个文件夹。</p>
+<p>ssh，简单来讲，就是一个秘钥，其中，id_rsa是你这台电脑的私人秘钥，不能给别人看的，id_rsa.pub是公共秘钥，可以随便给别人看。把这个公钥放在GitHub上，这样当你链接GitHub自己的账户时，它就会根据公钥匹配你的私钥，当能够相互匹配时，才能够顺利的通过git上传你的文件到GitHub上。</p>
+<p>而后在GitHub的setting中，找到SSH keys的设置选项，点击New SSH key<br>把你的id_rsa.pub里面的信息复制进去。</p>
+<p>在gitbash中，查看是否成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<h3 id="7-部署github"><a href="#7-部署github" class="headerlink" title="7.部署github"></a>7.部署github</h3><p>我们打开项目目录下站点配置文件 _config.yml，翻到最后，修改为<br>YourgithubName就是你的GitHub账户我们就可以将hexo和GitHub关联起来，也就是将hexo生成的文章部署到GitHub上。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: https://github.com/YourgithubName/YourgithubName.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+<p> 完成后还是在项目根目录下我们安装deploy-git ，也就是部署的命令,这样你才能用命令部署到GitHub。<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><br>编译生成文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean // hexo clean清除了你之前生成的东西，也可以不加。</span><br><span class="line">hexo generate //hexo generate 生成静态文章，可以用 hexo g缩写</span><br><span class="line">hexo deploy // 部署文章，可以用hexo d缩写</span><br></pre></td></tr></table></figure>
+<p> 注意deploy时可能要你输入username和password。<br> 在命令行看到上传文件没有报错， 请输入<a href="http://yourname.github.io" target="_blank" rel="noopener">http://yourname.github.io</a> 这个网站看到你的博客了。</p>
 
       
       <!-- 打赏 -->
