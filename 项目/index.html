@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    手把手教你撸Hexo博客(2) |  ZJY Blog Share
+    项目 |  ZJY Blog Share
   </title>
   
   <link rel="shortcut icon" href="/favicon.ico" />
@@ -32,7 +32,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-手把手教你撸Hexo博客-2" class="article article-type-post" itemscope
+  <article id="page-" class="article article-type-page" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -40,7 +40,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  手把手教你撸Hexo博客(2)
+  项目
 </h1>
   
 
@@ -48,21 +48,6 @@
     
 
     
-    <div class="article-meta">
-      <a href="/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-2/" class="article-date">
-  <time datetime="2020-01-05T03:51:18.000Z" itemprop="datePublished">2020-01-05</time>
-</a>
-      
-    </div>
-    
-
-    
-    
-    <div class="tocbot"></div>
-
-
-
-
 
     
 
@@ -73,31 +58,27 @@
       
 
       
-      <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本次教程属主要集中对创建博客后，对hexo博客框架相关主题更换设置，话不多说，我们现在开始！</p>
-<h3 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h3><p>首先我们可以进入<a href="https://hexo.io/themes/" target="_blank" rel="noopener">官网</a>查找你觉得喜欢的主题， 这里我选择ayer主题。点击图片可以查看大概主题效果。然后我们点击文字进入GitHub插件地址。</p>
-<p>打开你项目所在文件目录， 进入themes文件夹。右键打开git bash</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/Shen-Yu/hexo-theme-ayer.git themes/ayer</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>这里可能由于国内环境github访问很慢，导致下载不了或者下载非常慢。我这里提供两个方案</p>
-<h4 id="方案1"><a href="#方案1" class="headerlink" title="方案1"></a>方案1</h4><p>1.通过绕过DNS解析，直接在本地绑定host：<br>打开 <a href="http://tool.chinaz.com/dns，" target="_blank" rel="noopener">http://tool.chinaz.com/dns，</a> 我们输入github.com<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo1.jpg" alt="avatar"></p>
-<p>2.点击搜索，选择值最小的ip<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo2.png" alt="avatar"></p>
-<p>3.接着我们打开本地电脑的C:\Windows\System32\drivers\etc目录，找到hosts文件，请用笔记本打开或者IDE打开，如下图所示：<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo3.jpg" alt="avatar"></p>
-<p>4.添加你选择的ip到host文件最下面一行，注意有些因为权限问题无法保存。请在编辑前右键host权限开发所有写入权限<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo4.png" alt="avatar"></p>
-<p>5.验证是否成功：命令提示符中输入ping github.com，此时可以ping通github域名。我这边ping还是显示超时，证明该方法不是具有普遍性，但是进入github网站的确是快了很多。当然有些博主ping访问时没有问题的。<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo5.png" alt="avatar"></p>
-<h4 id="方案2-推荐"><a href="#方案2-推荐" class="headerlink" title="方案2(推荐)"></a>方案2(推荐)</h4><p>1.登录码云，新建码云库：<a href="https://gitee.com/projects/new，" target="_blank" rel="noopener">https://gitee.com/projects/new，</a> 没有就注册下，很容易</p>
-<p>2.新建仓库，导入你clone代码 <a href="https://github.com/Shen-Yu/hexo-theme-ayer.git" target="_blank" rel="noopener">https://github.com/Shen-Yu/hexo-theme-ayer.git</a> themes/ayer 或者你喜欢的主题<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo6.png" alt="avatar"></p>
-<p>3.创建仓库<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo7.png" alt="avatar"></p>
-<p>4.之后操作就跟github操作一样， 用git bash clone 对应码云的代码下载即可</p>
-<h3 id="切换主题"><a href="#切换主题" class="headerlink" title="切换主题"></a>切换主题</h3><p>如果按照我的方式这时候主题的目录文件应该在themes下面，我们这时候改下目录名称重命名改为ayer<br>这时候我们在根目录找到_config.yml文件<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo8.png" alt="avatar"></p>
-<p>默认主题是landscape， 我们改为ayer<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo9.png" alt="avatar"></p>
-<p>更改后重新启动服务 hexo g 这时候你就到跟我一样主题效果了。</p>
+      <h3 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h3><p>这里展示一些曾经做的项目</p>
+<h4 id="H5版本聊天应用（家校通）"><a href="#H5版本聊天应用（家校通）" class="headerlink" title="H5版本聊天应用（家校通）"></a>H5版本聊天应用（家校通）</h4><p>这个项目给学校做校内聊天用的，通过工作号绑定进入无需登录进入。<br>技术栈属于最新webpack+vux+vue全家桶，后台是nodejs+express<br>该学校可通过后台配置部门班级教师学生, 家长无需登录可以直接进入公众号进入班级获取相关学校相关通知信息, 也能和班主任教师获知学生作业和生活情况.同时相关信息的透明也方便学校监控管理. 该项目已上线,不定期维护.用户为东莞石龙中学</p>
+<p>功能有信息即时推送+表情包功能 + 文件上传下搜索 ,图片拍照压缩下载 + 班级指定人员禁言发言(班主任管控) ,班群禁言发言 + 留言图片文件撤回功能 + 教师人员权限管控等</p>
+<p>下面图片展示<br><img src="http://q3mbriqrc.bkt.clouddn.com/jiaxiaotong.png" alt="avatar"></p>
+<p><a href="http://q3mbriqrc.bkt.clouddn.com/jiaxiaotong.mp4"  target="_blank">点击查看家校通</a></p>
+<h4 id="定制设备-app（校车通）"><a href="#定制设备-app（校车通）" class="headerlink" title="定制设备+app（校车通）"></a>定制设备+app（校车通）</h4><p>该项目主要用于学校校车接送学生,通过外接定制设备读学生卡或者扫描二维码提前告知家长学生上车下车到校等信息, 家长也可通过相关移动端和微信推送获知准时了解学生是否正常上学下学</p>
+<p>已实现校车路线模 块,人员签到模块,考勤打卡模块, 校车站点模块. 还有H5端校车站点信息模块, 校车监控模块,以及信息推送模块等.还负责相关所有java端包括不限于Gps, 读卡,蜂鸣,摄像头等 </p>
+<p>下面图片展示<br><img src="http://q3mbriqrc.bkt.clouddn.com/busapp.png" alt="avatar"></p>
+<p><a href="http://q3mbriqrc.bkt.clouddn.com/busapp.mp4" target="_blank">点击查看校车通</a></p>
+<h4 id="电子班牌（校园通）"><a href="#电子班牌（校园通）" class="headerlink" title="电子班牌（校园通）"></a>电子班牌（校园通）</h4><p>学校通过该设备,实现学校方信息推送,也实现教师和学生和家长相关信息互通. 如教师学生到校上课打卡信息推送, 学生直接在设备请假, 或者家长通过手机端信息推送班牌通知学生等</p>
+<p>已完成学生中心 模块包块不限于刷卡签到, 学生请假, 个人课表查看等功能,完成同屏信息推送模 块,包括不限于设置指定轮播显示欢迎界面并及时推送, 新闻界面信息推送, 学校 公告推送, 家长信息推送的界面显示,课表信息界面推送.考勤登记模块,包括不限 于班级人员考勤签到早退信息查看,人员请假信息查看. 系统设置模块,包块不限 于设置开机静默安装, 读卡刷卡, gps信息定位, 蜂鸣等</p>
+<p>下面图片展示<br><img src="http://q3mbriqrc.bkt.clouddn.com/machine.png" alt="avatar"></p>
+<p><a href="http://q3mbriqrc.bkt.clouddn.com/machine1.mp4" target="_blank">校园通视频1</a></p>
+<p><a href="http://q3mbriqrc.bkt.clouddn.com/machine2.mp4" target="_blank">校园通视频2</a></p>
 
       
       <!-- 打赏 -->
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-2/" data-id="ck512r0nl00048wsy2t507vu4"
+      <a data-url="http://yoursite.com/%E9%A1%B9%E7%9B%AE/index.html" data-id="ck512r0nk00038wsy351maoss"
         class="article-share-link">分享</a>
       
     </footer>
@@ -106,25 +87,6 @@
 
   
   
-  <nav class="article-nav">
-    
-      <a href="/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-3/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            手把手教你撸Hexo博客(3)
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2020/01/02/hello-world/" class="article-nav-link">
-        <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">手把手教你撸Hexo博客(1)</div>
-      </a>
-    
-  </nav>
-
 
   
 
@@ -183,8 +145,6 @@
   
 
   
-  
-  
 
 </article>
 </section>
@@ -231,8 +191,8 @@
       </div>
     </main>
     
-    <aside class="sidebar">
-      
+      <aside class="sidebar">
+        
         <button class="navbar-toggle"></button>
 <nav class="navbar">
   
@@ -322,23 +282,6 @@
 
 
 
-
-  
-<script src="/js/tocbot.min.js"></script>
-
-  <script>
-    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
-    tocbot.init({
-      tocSelector: '.tocbot',
-      contentSelector: '.article-entry',
-      headingSelector: 'h1, h2, h3, h4, h5, h6',
-      hasInnerContainers: true,
-      scrollSmooth: true,
-      positionFixedSelector: '.tocbot',
-      positionFixedClass: 'is-position-fixed',
-      fixedSidebarOffset: 'auto',
-    });
-  </script>
 
 
 <script>
