@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>手把手教你撸Hexo博客(3)</title>
+    <url>/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-3/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>那么既然主题跟换了， 那么我们要怎么编辑内容呢。这里我推荐一个编辑插件hexo-admin 。</p>
+<p>本地运行hexo使用hexo-admin编写文章，然后通过hexo g或hexo d（hexo g是本地渲染，hexo d是将渲染的静态页面发布到GitHub）将生成的静态页面发布到GitHub等静态服务器。（我采取这个方案）</p>
+<a id="more"></a>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>首先进入hexo创建的博客项目的根目录下，执行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-admin</span><br></pre></td></tr></table></figure>
+
+<p>运行下列命令启动hexo-admin ：</p>
+<p>hexo server -d<br>打开 <a href="http://localhost:4000/admin/" target="_blank" rel="noopener">http://localhost:4000/admin/</a> 就可以访问到hexo-admin管理页面了。</p>
+<p>密码保护<br>打开setting，点击Setup authentification here输入用户名，密码，密钥，下面会自动生成配置文件，复制加在hexo根目录下的_config.yml中：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">admin:</span><br><span class="line"> username: myfavoritename</span><br><span class="line"> password_hash: be121740bf988b2225a313fa1f107ca1</span><br><span class="line"> secret: a secret something</span><br></pre></td></tr></table></figure>
+<p>重启hexo，就可以看到登录页面了</p>
+<h3 id="编辑"><a href="#编辑" class="headerlink" title="编辑"></a>编辑</h3><p>我们进入admin界面就可以开始编辑自己博客内容了,点击New Post 输入你的标题让背后进行编辑。基本语法就是markdown 语法类型<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo10.png" alt="avatar"></p>
+<h4 id="markdown实例"><a href="#markdown实例" class="headerlink" title="markdown实例"></a>markdown实例</h4><h5 id="1-标题"><a href="#1-标题" class="headerlink" title="1 标题"></a>1 标题</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这是一级标题</span></span><br><span class="line"><span class="comment">## 这是二级标题</span></span><br><span class="line"><span class="comment">### 这是三级标题</span></span><br><span class="line"><span class="comment">#### 这是四级标题</span></span><br><span class="line"><span class="comment">##### 这是五级标题</span></span><br><span class="line"><span class="comment">###### 这是六级标题</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="这是一级标题"><a href="#这是一级标题" class="headerlink" title="这是一级标题"></a>这是一级标题</h1><h2 id="这是二级标题"><a href="#这是二级标题" class="headerlink" title="这是二级标题"></a>这是二级标题</h2><h3 id="这是三级标题"><a href="#这是三级标题" class="headerlink" title="这是三级标题"></a>这是三级标题</h3><h4 id="这是四级标题"><a href="#这是四级标题" class="headerlink" title="这是四级标题"></a>这是四级标题</h4><h5 id="这是五级标题"><a href="#这是五级标题" class="headerlink" title="这是五级标题"></a>这是五级标题</h5><h6 id="这是六级标题"><a href="#这是六级标题" class="headerlink" title="这是六级标题"></a>这是六级标题</h6><h5 id="2-字体"><a href="#2-字体" class="headerlink" title="2 字体"></a>2 字体</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">**这是加粗的文字**</span><br><span class="line">*这是倾斜的文字*`</span><br><span class="line">***这是斜体加粗的文字***</span><br><span class="line">~~这是加删除线的文字~~</span><br></pre></td></tr></table></figure>
+
+<p><strong>这是加粗的文字</strong></p>
+<p><em>这是倾斜的文字</em>`</p>
+<p><strong><em>这是斜体加粗的文字</em></strong></p>
+<p><del>这是加删除线的文字</del></p>
+<h5 id="3-引用"><a href="#3-引用" class="headerlink" title="3 引用"></a>3 引用</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt;这是引用的内容1</span><br><span class="line">&gt;&gt;这是引用的内容2</span><br><span class="line">&gt;&gt;&gt;这是引用的内容3</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这是引用的内容1</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>这是引用的内容2</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>这是引用的内容3</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h5 id="4-分割线"><a href="#4-分割线" class="headerlink" title="4 分割线"></a>4 分割线</h5><p>三个或者三个以上的 - 或者 * 代表分割线。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">----</span><br><span class="line">***</span><br><span class="line">*****</span><br></pre></td></tr></table></figure>
+<hr>
+<hr>
+<h5 id="5-图片"><a href="#5-图片" class="headerlink" title="5 图片"></a>5 图片</h5><p>图片alt就是显示在图片下面的文字，相当于对图片内容的解释。<br>图片title是图片的标题，当鼠标移到图片上时显示的内容。title可加可不加。 由于我们是博客是部署到GitHub或者码云，这里建议用外网链接的方式，我们可以在七牛上申请个人空间，存储我们自己上传的所带图片。七牛需要验证，上传身份证什么，由于比较简单这里就暂时不给教程。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![图片alt](图片地址 &#39;&#39;图片title&#39;&#39;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="6-超链接"><a href="#6-超链接" class="headerlink" title="6 超链接"></a>6 超链接</h5><p>title可加可不加</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[超链接名](超链接地址 &quot;超链接title&quot;)</span><br><span class="line">[百度](http:&#x2F;&#x2F;baidu.com)</span><br></pre></td></tr></table></figure>
+<p><a href="http://baidu.com" target="_blank" rel="noopener">百度</a></p>
+<h5 id="7-列表"><a href="#7-列表" class="headerlink" title="7 列表"></a>7 列表</h5><p>无序列表用 - + * 任何一种都可以，有序列表数字加点空格后 内容</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- 列表内容</span><br><span class="line">+ 列表内容</span><br><span class="line">* 列表内容</span><br></pre></td></tr></table></figure>
+<ul>
+<li>列表内容</li>
+</ul>
+<ul>
+<li>列表内容</li>
+</ul>
+<ul>
+<li>列表内容</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 列表内容</span><br><span class="line">2. 列表内容</span><br><span class="line">3. 列表内容</span><br></pre></td></tr></table></figure>
+<ol>
+<li>列表内容</li>
+<li>列表内容</li>
+<li>列表内容</li>
+</ol>
+<p>列表嵌套<br>上一级和下一级之间敲三个空格即可</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">一级无序列表内容</span><br><span class="line"></span><br><span class="line">   + 二级无序列表内容</span><br><span class="line">   + 二级无序列表内容</span><br><span class="line">   + 二级无序列表内容</span><br><span class="line">   </span><br><span class="line">一级无序列表内容</span><br><span class="line">   1. 二级有序列表内容</span><br><span class="line">   2. 二级有序列表内容</span><br><span class="line">   3. 二级有序列表内容</span><br></pre></td></tr></table></figure>
+
+<p>一级无序列表内容</p>
+<ul>
+<li>二级无序列表内容</li>
+<li>二级无序列表内容</li>
+<li>二级无序列表内容</li>
+</ul>
+<p>一级无序列表内容</p>
+<ol>
+<li>二级有序列表内容</li>
+<li>二级有序列表内容</li>
+<li>二级有序列表内容</li>
+</ol>
+<h5 id="8-表格"><a href="#8-表格" class="headerlink" title="8 表格"></a>8 表格</h5><p>第二行分割表头和内容。<br>有一个就行，为了对齐，多加了几个</p>
+<p>文字默认居左</p>
+<p>两边加：表示文字居左</p>
+<p>右边加：表示文字居右</p>
+<p>注：原生的语法两边都要用 | 包起来。此处省略</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">姓名|技能|排行</span><br><span class="line">--|:--:|--:</span><br><span class="line">刘备|哭|大哥</span><br><span class="line">关羽|打|二哥</span><br><span class="line">张飞|骂|三弟</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>姓名</th>
+<th align="center">技能</th>
+<th align="right">排行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>刘备</td>
+<td align="center">哭</td>
+<td align="right">大哥</td>
+</tr>
+<tr>
+<td>关羽</td>
+<td align="center">打</td>
+<td align="right">二哥</td>
+</tr>
+<tr>
+<td>张飞</td>
+<td align="center">骂</td>
+<td align="right">三弟</td>
+</tr>
+</tbody></table>
+<h5 id="9-代码"><a href="#9-代码" class="headerlink" title="9 代码"></a>9 代码</h5><p>统一用三个反引号开始和三个反引号结束这样形式就可以了，打不出来主要这里展示避免反引号变成代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">代码 &#x2F;&#x2F;单行代码&#96;内容&#96;  </span><br><span class="line"></span><br><span class="line">多行代码</span><br><span class="line">(&#96;&#96;&#96;)</span><br><span class="line">    function fun()&#123;</span><br><span class="line">         echo &quot;这是一句非常牛逼的代码&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    fun();</span><br><span class="line">(&#96;&#96;&#96;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function fun()&#123;</span><br><span class="line">     echo &quot;这是一句非常牛逼的代码&quot;;</span><br><span class="line">&#125;</span><br><span class="line">fun();</span><br></pre></td></tr></table></figure>
+
+<h4 id="10-内容过多隐藏为显示更多"><a href="#10-内容过多隐藏为显示更多" class="headerlink" title="10 内容过多隐藏为显示更多"></a>10 内容过多隐藏为显示更多</h4><p>在你需要截取的内容输入&lt;! –more–&gt;就可以了</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>手把手教你撸Hexo博客(2)</title>
+    <url>/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-2/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本次教程属主要集中对创建博客后，对hexo博客框架相关主题更换设置，话不多说，我们现在开始！</p>
+<h3 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h3><p>首先我们可以进入<a href="https://hexo.io/themes/" target="_blank" rel="noopener">官网</a>查找你觉得喜欢的主题， 这里我选择ayer主题。点击图片可以查看大概主题效果。然后我们点击文字进入GitHub插件地址。</p>
+<p>打开你项目所在文件目录， 进入themes文件夹。右键打开git bash</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/Shen-Yu/hexo-theme-ayer.git themes/ayer</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>这里可能由于国内环境github访问很慢，导致下载不了或者下载非常慢。我这里提供两个方案</p>
+<h4 id="方案1"><a href="#方案1" class="headerlink" title="方案1"></a>方案1</h4><p>1.通过绕过DNS解析，直接在本地绑定host：<br>打开 <a href="http://tool.chinaz.com/dns，" target="_blank" rel="noopener">http://tool.chinaz.com/dns，</a> 我们输入github.com<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo1.jpg" alt="avatar"></p>
+<p>2.点击搜索，选择值最小的ip<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo2.png" alt="avatar"></p>
+<p>3.接着我们打开本地电脑的C:\Windows\System32\drivers\etc目录，找到hosts文件，请用笔记本打开或者IDE打开，如下图所示：<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo3.jpg" alt="avatar"></p>
+<p>4.添加你选择的ip到host文件最下面一行，注意有些因为权限问题无法保存。请在编辑前右键host权限开发所有写入权限<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo4.png" alt="avatar"></p>
+<p>5.验证是否成功：命令提示符中输入ping github.com，此时可以ping通github域名。我这边ping还是显示超时，证明该方法不是具有普遍性，但是进入github网站的确是快了很多。当然有些博主ping访问时没有问题的。<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo5.png" alt="avatar"></p>
+<h4 id="方案2-推荐"><a href="#方案2-推荐" class="headerlink" title="方案2(推荐)"></a>方案2(推荐)</h4><p>1.登录码云，新建码云库：<a href="https://gitee.com/projects/new，" target="_blank" rel="noopener">https://gitee.com/projects/new，</a> 没有就注册下，很容易</p>
+<p>2.新建仓库，导入你clone代码 <a href="https://github.com/Shen-Yu/hexo-theme-ayer.git" target="_blank" rel="noopener">https://github.com/Shen-Yu/hexo-theme-ayer.git</a> themes/ayer 或者你喜欢的主题<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo6.png" alt="avatar"></p>
+<p>3.创建仓库<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo7.png" alt="avatar"></p>
+<p>4.之后操作就跟github操作一样， 用git bash clone 对应码云的代码下载即可</p>
+<h3 id="切换主题"><a href="#切换主题" class="headerlink" title="切换主题"></a>切换主题</h3><p>如果按照我的方式这时候主题的目录文件应该在themes下面，我们这时候改下目录名称重命名改为ayer<br>这时候我们在根目录找到_config.yml文件<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo8.png" alt="avatar"></p>
+<p>默认主题是landscape， 我们改为ayer<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo9.png" alt="avatar"></p>
+<p>更改后重新启动服务 hexo g 这时候你就到跟我一样主题效果了。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>手把手教你撸Hexo博客(1)</title>
+    <url>/2020/01/02/hello-world/</url>
+    <content><![CDATA[<h2 id="Hexo简介"><a href="#Hexo简介" class="headerlink" title="Hexo简介"></a>Hexo简介</h2><p>作为前端技术栈，Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的生成静态网页托管在GitHub和Coding上，是搭建博客的首选框架。另外该框架对中文支持十分友好， 大家有兴趣可以<a href="https://hexo.io/" target="_blank" rel="noopener">官网</a>了解下。</p>
+<h3 id="Hexo搭建步骤"><a href="#Hexo搭建步骤" class="headerlink" title="Hexo搭建步骤"></a>Hexo搭建步骤</h3><h4 id="1-安装git"><a href="#1-安装git" class="headerlink" title="1.安装git"></a>1.安装git</h4><p>安装git用于部署代码上传博客静态文件。</p>
+<p><a href="https://npm.taobao.org/mirrors/git-for-windows/" target="_blank" rel="noopener">git淘宝镜像</a>， 下载速度快， window版本直接安装点击下一步完成安装即可。</p>
+<p>linux 安装， 安装完之后输入 git –version 返回版本安装成功。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="2-安装nodejs"><a href="#2-安装nodejs" class="headerlink" title="2.安装nodejs"></a>2.安装nodejs</h3><p>做前端这行没人不清楚nodejs， 这是把js专门语言扩展到服务器语言的服务器。用于部署Hexo本地服务器调试。</p>
+<p><a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">官网</a>选择LTS版本，安装nodejs默认安装点击下一步即可。</p>
+<p>window下打开命令行win+R, 输入cmd输入node -v 返回对应版本， npm -v返回对应版本即安装成功。建议输入设置淘宝镜像， 方便npm包正常下载</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>linux安装</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://nodejs.org/dist/v10.16.0/node-v10.16.0-linux-x64.tar.xz    // xz下载不用编译</span><br><span class="line">tar xf node-v10.16.0-linux-x64.tar.xz  </span><br><span class="line"><span class="built_in">cd</span> node-v10.16.0-linux-x64            // 进入解压目录</span><br><span class="line">node -v                               //返回版本号即安装成功</span><br><span class="line">npm -v                                // 返回版本号即安装成功</span><br><span class="line">ln -s /usr/<span class="built_in">local</span>/src/nodejs/bin/node  /usr/<span class="built_in">local</span>/bin/node       // 链接全局命令</span><br><span class="line">ln -s /usr/<span class="built_in">local</span>/src/nodejs/bin/npm   /usr/<span class="built_in">local</span>/bin/npm       //链接全局命令</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-安装Hexo"><a href="#3-安装Hexo" class="headerlink" title="3.安装Hexo"></a>3.安装Hexo</h3><p>git和nodejs安装好后，就可以安装hexo了，window下你可以找你喜欢地方先创建一个文件夹blog或者你喜欢名字文件夹，按住shift点击右键打开powerShell或者在文件路径地址栏输入cmd，然后cd到这个文件夹下（或者在这个文件夹下直接右键git bash打开）。</p>
+<p>输入命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<p>如果下载速度很慢或者请返回安装第二步安装nodejs 中设置淘宝镜像。</p>
+<p>接下来初始化项目</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo init hexo // 会创建一个项目文件</span><br><span class="line"><span class="built_in">cd</span> hexo</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>等待安装完后，你会看到下面目录</p>
+<ul>
+<li>node_modules: 依赖包</li>
+<li>public：存放生成的页面</li>
+<li>scaffolds：生成文章的一些模板</li>
+<li>source：用来存放你的文章</li>
+<li>themes：主题</li>
+<li>_config.yml: 博客的配置文件（重点）</li>
+</ul>
+<h3 id="4-启动服务"><a href="#4-启动服务" class="headerlink" title="4.启动服务"></a>4.启动服务</h3><p>启动服务之前需要生成文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo g // hexo generate 的简写</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<p>在浏览器输入localhost:4000就可以看到你生成的博客了。<br>到这里其实已经完成本地的博客部署。当然如果想要把博客放到网上，我们可以使用GitHub的仓库作为自己博客的地址， 那么我们继续走下一步。</p>
+<h3 id="5-github仓库准备"><a href="#5-github仓库准备" class="headerlink" title="5.github仓库准备"></a>5.github仓库准备</h3><p>你需要一个GitHub账户，如果没有的话去注册一个吧。</p>
+<p>注册完登录后，在GitHub.com中看到一个New repository，新建仓库 或者点击你的头像下拉有一个your repository 点击进去新建仓库。</p>
+<p>要想访问并且上传博客文件，必须创建一个和你用户名相同的仓库，后面加.github.io，比如xxx.github.io新建作为新的仓库。只有这样，将来要部署到GitHub page的时候，才会被识别，也就是xxxx.github.io，其中xxx就是你注册GitHub的用户名。</p>
+<h3 id="6-生成SSH添加到GitHub"><a href="#6-生成SSH添加到GitHub" class="headerlink" title="6.生成SSH添加到GitHub"></a>6.生成SSH添加到GitHub</h3><p>在目录文件下右键打开git bash</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">"yourname"</span></span><br><span class="line">git config --global user.email <span class="string">"youremail"</span></span><br></pre></td></tr></table></figure>
+
+<p>这里的yourname输入你的GitHub用户名，youremail输入你GitHub的邮箱。这样GitHub才能知道你是不是对应它的账户。</p>
+<p>输入后检查你的输入是否成功</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure>
+
+<p>然后创建SSH,一直按住enter回车键</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"youremail"</span></span><br></pre></td></tr></table></figure>
+
+<p>这个时候它会告诉你已经生成了.ssh的文件夹。按照命令中的地址，在你的电脑中找到这个文件夹。</p>
+<p>ssh，简单来讲，就是一个秘钥，其中，id_rsa是你这台电脑的私人秘钥，不能给别人看的，id_rsa.pub是公共秘钥，可以随便给别人看。把这个公钥放在GitHub上，这样当你链接GitHub自己的账户时，它就会根据公钥匹配你的私钥，当能够相互匹配时，才能够顺利的通过git上传你的文件到GitHub上。</p>
+<p>而后在GitHub的setting中，找到SSH keys的设置选项，点击New SSH key<br>把你的id_rsa.pub里面的信息复制进去。</p>
+<p>在gitbash中，查看是否成功</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<h3 id="7-部署github"><a href="#7-部署github" class="headerlink" title="7.部署github"></a>7.部署github</h3><p>我们打开项目目录下站点配置文件 _config.yml，翻到最后，修改为<br>YourgithubName就是你的GitHub账户我们就可以将hexo和GitHub关联起来，也就是将hexo生成的文章部署到GitHub上。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: https://github.com/YourgithubName/YourgithubName.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+<p> 完成后还是在项目根目录下我们安装deploy-git ，也就是部署的命令,这样你才能用命令部署到GitHub。<br> <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><br>编译生成文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean // hexo clean清除了你之前生成的东西，也可以不加。</span><br><span class="line">hexo generate //hexo generate 生成静态文章，可以用 hexo g缩写</span><br><span class="line">hexo deploy // 部署文章，可以用hexo d缩写</span><br></pre></td></tr></table></figure>
+<p> 注意deploy时可能要你输入username和password。<br> 在命令行看到上传文件没有报错， 请输入<a href="http://yourname.github.io" target="_blank" rel="noopener">http://yourname.github.io</a> 这个网站看到你的博客了。</p>
+]]></content>
+  </entry>
+</search>
