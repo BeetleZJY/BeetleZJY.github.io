@@ -1,6 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>手把手教你linux部署nginx</title>
+    <url>/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0linux%E9%83%A8%E7%BD%B2nginx/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>目前主流公司如果采取前后分离开发方案的情况，一般前端使用webpack打包会生成dist文件需要部署nginx静态服务器，在window下安装部署nginx十分简单，只需要安装完后丢到ngix安装目录下html目录下， 然后直接在conf文件下配置conf文件即可。然后打开localhost可以看到效果，那在linux是怎么部署呢？接下来我们在linux部署ngix</p>
+<a id="more"></a>
+
+<h3 id="检测nginx安装与否"><a href="#检测nginx安装与否" class="headerlink" title="检测nginx安装与否"></a>检测nginx安装与否</h3><p>1.查看进程列表<br>Linux每个应用运行都会产生一个进程，那么我们就可以通过查看Nginx进程是否存在来判断它是否启动。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ps -ef | grep nginx</span><br></pre></td></tr></table></figure>
+<p>2.或者查看Nginx的进程id</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ps -C nginx -o pid</span><br></pre></td></tr></table></figure>
+<p>如果没有对应的进程请继续下一步</p>
+<h3 id="检测相关依赖安装与否"><a href="#检测相关依赖安装与否" class="headerlink" title="检测相关依赖安装与否"></a>检测相关依赖安装与否</h3><p>需要安装相关依赖</p>
+<ul>
+<li>gcc </li>
+<li>zlib zlib-devel </li>
+<li>pcre-devel </li>
+<li>openssl openssl-devel</li>
+</ul>
+<p>解释</p>
+<ol>
+<li><p>因为Nginx以来与gcc的编译环境，所 centos中需要安装编译环境来使Nginx能够编译起来</p>
+</li>
+<li><p>Nginx的http模块需要使用pcre来解析正则表达式</p>
+</li>
+<li><p>依赖的zlib zlib-devel 解压包 </p>
+</li>
+</ol>
+<p>一键安装</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel</span><br></pre></td></tr></table></figure>
+
+<h3 id="下载并解压nginx安装包"><a href="#下载并解压nginx安装包" class="headerlink" title="下载并解压nginx安装包"></a>下载并解压nginx安装包</h3><p>安装wget,用来下载nginx安装包，如果没安装进入根目录安装</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;</span><br><span class="line">yum install wget -y</span><br></pre></td></tr></table></figure>
+
+<p>切换到opt目录下，新建文件夹nginx，然后进入nginx文件夹</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;opt</span><br><span class="line">mkdir nginx</span><br><span class="line">cd &#x2F;nginx</span><br></pre></td></tr></table></figure>
+
+<p>官网进入 <a href="http://nginx.org/en/download.html" target="_blank" rel="noopener">http://nginx.org/en/download.html</a> 找到自己需要的版本下载(以下为最新版本)，<br>执行如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget  http:&#x2F;&#x2F;nginx.org&#x2F;download&#x2F;nginx-1.13.11.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>解压nginx文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tar zxvf nginx-1.13.11.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h3 id="编译安装nginx"><a href="#编译安装nginx" class="headerlink" title="编译安装nginx"></a>编译安装nginx</h3><p>切换到opt目录下，新建文件夹nginx-1-13</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;opt</span><br><span class="line">mdkir nginx-1-13</span><br><span class="line">cd &#x2F;opt&#x2F;nginx-1.13.11</span><br><span class="line">.&#x2F;configure  --prefix&#x3D;&#x2F;opt&#x2F;nginx-1-13      #指定安装目录</span><br></pre></td></tr></table></figure>
+
+<p>等待编译完，在/opt/nginx/nginx-1.13.11目录下执行编译命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<p>等待编译完</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<p>等待安装完，进入安装目录下查看是否安装号</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;opt&#x2F;nginx-1-13</span><br><span class="line">nginx -v</span><br></pre></td></tr></table></figure>
+
+<p>如无意外应该会出现nginx版本</p>
+<h3 id="建立全局链接"><a href="#建立全局链接" class="headerlink" title="建立全局链接"></a>建立全局链接</h3><p>安装好后输入whereis nginx 找nginx位置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">whereis nginx</span><br></pre></td></tr></table></figure>
+
+<p>把刚才你安装目录链接到 /usr/local/bin/</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ln -s &#x2F;opt&#x2F;nginx-1-13  &#x2F;usr&#x2F;local&#x2F;bin&#x2F;</span><br></pre></td></tr></table></figure>
+<p>链接成功后在任意位置输入 nginx -v 就会返回nginx版本。</p>
+<h3 id="开放80接口"><a href="#开放80接口" class="headerlink" title="开放80接口"></a>开放80接口</h3><p>开放nginx默认端口号80，nginx默认使用80端口</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd sbin&#x2F;</span><br><span class="line">&#x2F;sbin&#x2F;iptables -I INPUT -p tcp --dport 80 -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+<p>查看端口 netstat -ntlp</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">netstat -ntlp</span><br></pre></td></tr></table></figure>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>理论上链接全局后在任意目录都可以启动nginx， 输入./nginx</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;nginx &#x2F;&#x2F;启动</span><br><span class="line">.&#x2F;nginx -s stop &#x2F;&#x2F;停止</span><br><span class="line">.&#x2F;nginx -s quit</span><br><span class="line">.&#x2F;nginx -s reload &#x2F;&#x2F;重启</span><br><span class="line">.&#x2F;nginx -s quit:此方式停止步骤是待nginx进程处理任务完毕进行停止。</span><br><span class="line">.&#x2F;nginx -s stop:此方式相当于先查出nginx进程id再使用kill命令强制杀掉进程。</span><br></pre></td></tr></table></figure>
+<h3 id="浏览"><a href="#浏览" class="headerlink" title="浏览"></a>浏览</h3><p>打开conf文件设置下，默认是localhost，如果公网ip或者网站域名是打不开，需要设置server(不需要#号的，实际开发如果有请去掉，默认是没有的，在红色部分输入公网i护着地址)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;opt&#x2F;nginx-1-13&#x2F;conf</span><br><span class="line">vi nginx.conf</span><br></pre></td></tr></table></figure>
+<p>打开后，按住i切换insert模式，server_name默认是localhost，需要设置server_name,不需要#号的，实际开发如果有请去掉，默认是没有的，在红色部分输入公网ip或者域名地址</p>
+<p><img src="http://q3mbriqrc.bkt.clouddn.com/setting.png" alt="avatar"></p>
+<p>修改完后，按住esc切换输入:wq!保存</p>
+<p>另外还有一个坑，就是nginx设置权限问题，默认nginx是nobody，如果你当前是root用户需要修改user为root，给与读写权限，如下图</p>
+<p><img src="http://q3mbriqrc.bkt.clouddn.com/setting-user.png" alt="avatar"></p>
+<p>至此，你就可以打开对应地址：公网ip或者域名（如果绑定）看到nginx欢迎界面。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>牛客网前端刷题锦囊(1)</title>
     <url>/2020/01/05/%E7%89%9B%E5%AE%A2%E7%BD%91%E5%89%8D%E7%AB%AF%E5%88%B7%E9%A2%98%E9%94%A6%E5%9B%8A/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>相信小伙伴们面试各类公司除了传统笔试，更多面对是如牛客网这样网上在线编程笔试。但是由于牛客网对前端语言js支持不太友好，导致小伙伴们都不太清楚编程题如何输入输出答案(js解释性语言真不好做输出输入流，建议用nodejs吧，语法基本一样)</p>

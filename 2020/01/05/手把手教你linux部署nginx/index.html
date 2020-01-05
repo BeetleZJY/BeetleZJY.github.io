@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="前端技术，js, boostrap, vue, wepack, tyepscript, nodejs" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    手把手教你linux部署nginx |  ZJY Blog Share
+  </title>
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-手把手教你linux部署nginx" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  手把手教你linux部署nginx
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0linux%E9%83%A8%E7%BD%B2nginx/" class="article-date">
+  <time datetime="2020-01-05T13:59:39.000Z" itemprop="datePublished">2020-01-05</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>目前主流公司如果采取前后分离开发方案的情况，一般前端使用webpack打包会生成dist文件需要部署nginx静态服务器，在window下安装部署nginx十分简单，只需要安装完后丢到ngix安装目录下html目录下， 然后直接在conf文件下配置conf文件即可。然后打开localhost可以看到效果，那在linux是怎么部署呢？接下来我们在linux部署ngix</p>
+<a id="more"></a>
+
+<h3 id="检测nginx安装与否"><a href="#检测nginx安装与否" class="headerlink" title="检测nginx安装与否"></a>检测nginx安装与否</h3><p>1.查看进程列表<br>Linux每个应用运行都会产生一个进程，那么我们就可以通过查看Nginx进程是否存在来判断它是否启动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep nginx</span><br></pre></td></tr></table></figure>
+<p>2.或者查看Nginx的进程id</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -C nginx -o pid</span><br></pre></td></tr></table></figure>
+<p>如果没有对应的进程请继续下一步</p>
+<h3 id="检测相关依赖安装与否"><a href="#检测相关依赖安装与否" class="headerlink" title="检测相关依赖安装与否"></a>检测相关依赖安装与否</h3><p>需要安装相关依赖</p>
+<ul>
+<li>gcc </li>
+<li>zlib zlib-devel </li>
+<li>pcre-devel </li>
+<li>openssl openssl-devel</li>
+</ul>
+<p>解释</p>
+<ol>
+<li><p>因为Nginx以来与gcc的编译环境，所 centos中需要安装编译环境来使Nginx能够编译起来</p>
+</li>
+<li><p>Nginx的http模块需要使用pcre来解析正则表达式</p>
+</li>
+<li><p>依赖的zlib zlib-devel 解压包 </p>
+</li>
+</ol>
+<p>一键安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel</span><br></pre></td></tr></table></figure>
+
+<h3 id="下载并解压nginx安装包"><a href="#下载并解压nginx安装包" class="headerlink" title="下载并解压nginx安装包"></a>下载并解压nginx安装包</h3><p>安装wget,用来下载nginx安装包，如果没安装进入根目录安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;</span><br><span class="line">yum install wget -y</span><br></pre></td></tr></table></figure>
+
+<p>切换到opt目录下，新建文件夹nginx，然后进入nginx文件夹</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;opt</span><br><span class="line">mkdir nginx</span><br><span class="line">cd &#x2F;nginx</span><br></pre></td></tr></table></figure>
+
+<p>官网进入 <a href="http://nginx.org/en/download.html" target="_blank" rel="noopener">http://nginx.org/en/download.html</a> 找到自己需要的版本下载(以下为最新版本)，<br>执行如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget  http:&#x2F;&#x2F;nginx.org&#x2F;download&#x2F;nginx-1.13.11.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>解压nginx文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf nginx-1.13.11.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h3 id="编译安装nginx"><a href="#编译安装nginx" class="headerlink" title="编译安装nginx"></a>编译安装nginx</h3><p>切换到opt目录下，新建文件夹nginx-1-13</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;opt</span><br><span class="line">mdkir nginx-1-13</span><br><span class="line">cd &#x2F;opt&#x2F;nginx-1.13.11</span><br><span class="line">.&#x2F;configure  --prefix&#x3D;&#x2F;opt&#x2F;nginx-1-13      #指定安装目录</span><br></pre></td></tr></table></figure>
+
+<p>等待编译完，在/opt/nginx/nginx-1.13.11目录下执行编译命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<p>等待编译完</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<p>等待安装完，进入安装目录下查看是否安装号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;opt&#x2F;nginx-1-13</span><br><span class="line">nginx -v</span><br></pre></td></tr></table></figure>
+
+<p>如无意外应该会出现nginx版本</p>
+<h3 id="建立全局链接"><a href="#建立全局链接" class="headerlink" title="建立全局链接"></a>建立全局链接</h3><p>安装好后输入whereis nginx 找nginx位置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whereis nginx</span><br></pre></td></tr></table></figure>
+
+<p>把刚才你安装目录链接到 /usr/local/bin/</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s &#x2F;opt&#x2F;nginx-1-13  &#x2F;usr&#x2F;local&#x2F;bin&#x2F;</span><br></pre></td></tr></table></figure>
+<p>链接成功后在任意位置输入 nginx -v 就会返回nginx版本。</p>
+<h3 id="开放80接口"><a href="#开放80接口" class="headerlink" title="开放80接口"></a>开放80接口</h3><p>开放nginx默认端口号80，nginx默认使用80端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd sbin&#x2F;</span><br><span class="line">&#x2F;sbin&#x2F;iptables -I INPUT -p tcp --dport 80 -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+<p>查看端口 netstat -ntlp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -ntlp</span><br></pre></td></tr></table></figure>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>理论上链接全局后在任意目录都可以启动nginx， 输入./nginx</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;nginx &#x2F;&#x2F;启动</span><br><span class="line">.&#x2F;nginx -s stop &#x2F;&#x2F;停止</span><br><span class="line">.&#x2F;nginx -s quit</span><br><span class="line">.&#x2F;nginx -s reload &#x2F;&#x2F;重启</span><br><span class="line">.&#x2F;nginx -s quit:此方式停止步骤是待nginx进程处理任务完毕进行停止。</span><br><span class="line">.&#x2F;nginx -s stop:此方式相当于先查出nginx进程id再使用kill命令强制杀掉进程。</span><br></pre></td></tr></table></figure>
+<h3 id="浏览"><a href="#浏览" class="headerlink" title="浏览"></a>浏览</h3><p>打开conf文件设置下，默认是localhost，如果公网ip或者网站域名是打不开，需要设置server(不需要#号的，实际开发如果有请去掉，默认是没有的，在红色部分输入公网i护着地址)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;opt&#x2F;nginx-1-13&#x2F;conf</span><br><span class="line">vi nginx.conf</span><br></pre></td></tr></table></figure>
+<p>打开后，按住i切换insert模式，server_name默认是localhost，需要设置server_name,不需要#号的，实际开发如果有请去掉，默认是没有的，在红色部分输入公网ip或者域名地址</p>
+<p><img src="http://q3mbriqrc.bkt.clouddn.com/setting.png" alt="avatar"></p>
+<p>修改完后，按住esc切换输入:wq!保存</p>
+<p>另外还有一个坑，就是nginx设置权限问题，默认nginx是nobody，如果你当前是root用户需要修改user为root，给与读写权限，如下图</p>
+<p><img src="http://q3mbriqrc.bkt.clouddn.com/setting-user.png" alt="avatar"></p>
+<p>至此，你就可以打开对应地址：公网ip或者域名（如果绑定）看到nginx欢迎界面。</p>
+
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0linux%E9%83%A8%E7%BD%B2nginx/" data-id="ck5139o4r0000p4sybah83rcj"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/01/05/%E7%89%9B%E5%AE%A2%E7%BD%91%E5%89%8D%E7%AB%AF%E5%88%B7%E9%A2%98%E9%94%A6%E5%9B%8A/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">牛客网前端刷题锦囊(1)</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: '',
+        app_key: '',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2015-2020
+        zjy
+      </li>
+      <li>
+        
+          Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>PV:<span id="busuanzi_value_page_pv"></span></li>
+  <li>UV:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    
+    <aside class="sidebar">
+      
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="ZJY Blog Share"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">目录</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/%E9%A1%B9%E7%9B%AE/index.html">视频</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about/index.html">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  
+  
+  </div>
+</body>
+
+</html>
