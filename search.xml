@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>牛客网前端刷题锦囊(1)</title>
+    <url>/2020/01/05/%E7%89%9B%E5%AE%A2%E7%BD%91%E5%89%8D%E7%AB%AF%E5%88%B7%E9%A2%98%E9%94%A6%E5%9B%8A/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>相信小伙伴们面试各类公司除了传统笔试，更多面对是如牛客网这样网上在线编程笔试。但是由于牛客网对前端语言js支持不太友好，导致小伙伴们都不太清楚编程题如何输入输出答案(js解释性语言真不好做输出输入流，建议用nodejs吧，语法基本一样)</p>
+<a id="more"></a>
+
+<p>1.首先选择nodejs版本</p>
+<p>2.单行输入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var readline &#x3D; require(&#39;readline&#39;)</span><br><span class="line">const rl &#x3D; readline.createInterface(&#123;</span><br><span class="line">  input: process.stdin,</span><br><span class="line">  output: process.stdout</span><br><span class="line">&#125;)</span><br><span class="line">rl.on(&#39;line&#39;, function(line) &#123;</span><br><span class="line">  &#x2F;&#x2F;line为输入的单行字符串，split函数--通过空格将该行数据转换为数组。</span><br><span class="line">  var arr&#x3D; line.split(&#39; &#39;)</span><br><span class="line"> &#x2F;&#x2F;数组arr的每一项都是字符串格式，如果我们需要整型，则需要parseInt将其转换为数字</span><br><span class="line">  console.log(arr[0]);</span><br><span class="line">  &#x2F;&#x2F; 下面是你处理的逻辑</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>本地命令打开文件进行调试输出，如下图</p>
+<p><img src="http://q3mbriqrc.bkt.clouddn.com/input-single.png" alt="avatar"></p>
+<p>3.多行输入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var readline &#x3D; require(&#39;readline&#39;)</span><br><span class="line">const rl &#x3D; readline.createInterface(&#123;</span><br><span class="line">  input: process.stdin,</span><br><span class="line">  output: process.stdout</span><br><span class="line">&#125;)</span><br><span class="line">rl.on(&#39;line&#39;, function(line) &#123;</span><br><span class="line">  &#x2F;&#x2F;trim()去除字符串两边的空白,line表示一行输入，最终得到的inputs数组的每一个元素表示一行输入。</span><br><span class="line">  inputs.push(line.trim());</span><br><span class="line">  &#x2F;&#x2F;下面再根据要求对每一行数据进行处理，比如类似于单行输入将每一行数据按照空格转换为数组等</span><br><span class="line">    console.log(inputs)</span><br><span class="line">   &#x2F;&#x2F; 写你的逻辑</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<p>本地命令打开文件进行调试输出，如下图<br><img src="http://q3mbriqrc.bkt.clouddn.com/input-multi.png" alt="avatar"></p>
+<p>4.牛客网有些题型会在第一行指定循环的行数或者次数，然后根据指定的读取除了第一行之外所有值的求和或者计算。那么例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var readline &#x3D; require(&#39;readline&#39;)</span><br><span class="line">const rl &#x3D; readline.createInterface(&#123;</span><br><span class="line">  input: process.stdin,</span><br><span class="line">  output: process.stdout</span><br><span class="line">&#125;)</span><br><span class="line">var inputs &#x3D; []</span><br><span class="line">rl.on(&#39;line&#39;, function(line)&#123;</span><br><span class="line">  &#x2F;&#x2F;trim()去除字符串两边的空白,line表示一行输入，最终得到的inputs数组的每一个元素表示一行输入。</span><br><span class="line">  inputs.push(line.trim());</span><br><span class="line">  &#x2F;&#x2F;下面再根据要求对每一行数据进行处理，比如类似于单行输入将每一行数据按照空格转换为数组等</span><br><span class="line">    &#x2F;&#x2F; 每次读取时判断是否第一行的次数等于剩下的读取的次数，如果是进行逻辑计算。这里用&#x3D;&#x3D;是因为类型不一样</span><br><span class="line">    if(inputs[0] &#x3D;&#x3D; inputs.length - 1) &#123;</span><br><span class="line">      console.log(inputs)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<p>本地命令打开文件进行调试输出，如下图<br><img src="http://q3mbriqrc.bkt.clouddn.com/input-multi-length.png" alt="avatar"></p>
+<h3 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h3><p>基本上按照上面的输入输出流基本可以保证输出结果，剩下只要把你需要写的逻辑写进去就可以了。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>手把手教你撸Hexo博客(3)</title>
     <url>/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-3/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>那么既然主题跟换了， 那么我们要怎么编辑内容呢。这里我推荐一个编辑插件hexo-admin 。</p>
