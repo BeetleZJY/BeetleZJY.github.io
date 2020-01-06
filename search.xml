@@ -237,7 +237,7 @@
 <p>3.接着我们打开本地电脑的C:\Windows\System32\drivers\etc目录，找到hosts文件，请用笔记本打开或者IDE打开，如下图所示：<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo3.jpg" alt="avatar"></p>
 <p>4.添加你选择的ip到host文件最下面一行，注意有些因为权限问题无法保存。请在编辑前右键host权限开发所有写入权限<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo4.png" alt="avatar"></p>
 <p>5.验证是否成功：命令提示符中输入ping github.com，此时可以ping通github域名。我这边ping还是显示超时，证明该方法不是具有普遍性，但是进入github网站的确是快了很多。当然有些博主ping访问时没有问题的。<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo5.png" alt="avatar"></p>
-<h4 id="方案2-推荐"><a href="#方案2-推荐" class="headerlink" title="方案2(推荐)"></a>方案2(推荐)</h4><p>1.登录码云，新建码云库：<a href="https://gitee.com/projects/new，" target="_blank" rel="noopener">https://gitee.com/projects/new，</a> 没有就注册下，很容易</p>
+<h4 id="方案2-推荐"><a href="#方案2-推荐" class="headerlink" title="方案2(推荐)"></a>方案2(推荐)</h4><p>1.登录码云，新建码云库：<a href="https://gitee.com/projects/new，">https://gitee.com/projects/new，</a> 没有就注册下，很容易</p>
 <p>2.新建仓库，导入你clone代码 <a href="https://github.com/Shen-Yu/hexo-theme-ayer.git" target="_blank" rel="noopener">https://github.com/Shen-Yu/hexo-theme-ayer.git</a> themes/ayer 或者你喜欢的主题<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo6.png" alt="avatar"></p>
 <p>3.创建仓库<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo7.png" alt="avatar"></p>
 <p>4.之后操作就跟github操作一样， 用git bash clone 对应码云的代码下载即可</p>
