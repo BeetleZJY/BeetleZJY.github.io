@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>手把手教你linux部署nginx</title>
-    <url>/blog/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0linux%E9%83%A8%E7%BD%B2nginx/</url>
+    <url>/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0linux%E9%83%A8%E7%BD%B2nginx/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>目前主流公司如果采取前后分离开发方案的情况，一般前端使用webpack打包会生成dist文件需要部署nginx静态服务器，在window下安装部署nginx十分简单，只需要安装完后丢到ngix安装目录下html目录下， 然后直接在conf文件下配置conf文件即可。然后打开localhost可以看到效果，那在linux是怎么部署呢？接下来我们在linux部署ngix</p>
 <a id="more"></a>
 
@@ -80,7 +80,7 @@
   </entry>
   <entry>
     <title>牛客网前端刷题锦囊(1)</title>
-    <url>/blog/2020/01/05/%E7%89%9B%E5%AE%A2%E7%BD%91%E5%89%8D%E7%AB%AF%E5%88%B7%E9%A2%98%E9%94%A6%E5%9B%8A/</url>
+    <url>/2020/01/05/%E7%89%9B%E5%AE%A2%E7%BD%91%E5%89%8D%E7%AB%AF%E5%88%B7%E9%A2%98%E9%94%A6%E5%9B%8A/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>相信小伙伴们面试各类公司除了传统笔试，更多面对是如牛客网这样网上在线编程笔试。但是由于牛客网对前端语言js支持不太友好，导致小伙伴们都不太清楚编程题如何输入输出答案(js解释性语言真不好做输出输入流，建议用nodejs吧，语法基本一样)</p>
 <a id="more"></a>
 
@@ -105,7 +105,7 @@
   </entry>
   <entry>
     <title>手把手教你撸Hexo博客(3)</title>
-    <url>/blog/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-3/</url>
+    <url>/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-3/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>那么既然主题跟换了， 那么我们要怎么编辑内容呢。这里我推荐一个编辑插件hexo-admin 。</p>
 <p>本地运行hexo使用hexo-admin编写文章，然后通过hexo g或hexo d（hexo g是本地渲染，hexo d是将渲染的静态页面发布到GitHub）将生成的静态页面发布到GitHub等静态服务器。（我采取这个方案）</p>
 <a id="more"></a>
@@ -225,7 +225,7 @@
   </entry>
   <entry>
     <title>手把手教你撸Hexo博客(2)</title>
-    <url>/blog/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-2/</url>
+    <url>/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-2/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本次教程属主要集中对创建博客后，对hexo博客框架相关主题更换设置，话不多说，我们现在开始！</p>
 <h3 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h3><p>首先我们可以进入<a href="https://hexo.io/themes/" target="_blank" rel="noopener">官网</a>查找你觉得喜欢的主题， 这里我选择ayer主题。点击图片可以查看大概主题效果。然后我们点击文字进入GitHub插件地址。</p>
 <p>打开你项目所在文件目录， 进入themes文件夹。右键打开git bash</p>
@@ -248,7 +248,7 @@
   </entry>
   <entry>
     <title>手把手教你撸Hexo博客(1)</title>
-    <url>/blog/2020/01/02/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-1/</url>
+    <url>/2020/01/02/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-1/</url>
     <content><![CDATA[<h2 id="Hexo简介"><a href="#Hexo简介" class="headerlink" title="Hexo简介"></a>Hexo简介</h2><p>作为前端技术栈，Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的生成静态网页托管在GitHub和Coding上，是搭建博客的首选框架。另外该框架对中文支持十分友好， 大家有兴趣可以<a href="https://hexo.io/" target="_blank" rel="noopener">官网</a>了解下。</p>
 <h3 id="Hexo搭建步骤"><a href="#Hexo搭建步骤" class="headerlink" title="Hexo搭建步骤"></a>Hexo搭建步骤</h3><h4 id="1-安装git"><a href="#1-安装git" class="headerlink" title="1.安装git"></a>1.安装git</h4><p>安装git用于部署代码上传博客静态文件。</p>
 <p><a href="https://npm.taobao.org/mirrors/git-for-windows/" target="_blank" rel="noopener">git淘宝镜像</a>， 下载速度快， window版本直接安装点击下一步完成安装即可。</p>
