@@ -248,7 +248,7 @@
   </entry>
   <entry>
     <title>手把手教你撸Hexo博客(1)</title>
-    <url>/blog/2020/01/02/hello-world/</url>
+    <url>/blog/2020/01/02/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-1/</url>
     <content><![CDATA[<h2 id="Hexo简介"><a href="#Hexo简介" class="headerlink" title="Hexo简介"></a>Hexo简介</h2><p>作为前端技术栈，Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的生成静态网页托管在GitHub和Coding上，是搭建博客的首选框架。另外该框架对中文支持十分友好， 大家有兴趣可以<a href="https://hexo.io/" target="_blank" rel="noopener">官网</a>了解下。</p>
 <h3 id="Hexo搭建步骤"><a href="#Hexo搭建步骤" class="headerlink" title="Hexo搭建步骤"></a>Hexo搭建步骤</h3><h4 id="1-安装git"><a href="#1-安装git" class="headerlink" title="1.安装git"></a>1.安装git</h4><p>安装git用于部署代码上传博客静态文件。</p>
 <p><a href="https://npm.taobao.org/mirrors/git-for-windows/" target="_blank" rel="noopener">git淘宝镜像</a>， 下载速度快， window版本直接安装点击下一步完成安装即可。</p>
