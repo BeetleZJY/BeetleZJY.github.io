@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>牛客网前端编程算法(1)</title>
+    <url>/2020/01/07/%E7%89%9B%E5%AE%A2%E7%BD%91%E5%89%8D%E7%AB%AF%E7%BC%96%E7%A8%8B%E7%AE%97%E6%B3%95-1/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这里收集网上其他博主以及牛客网的一些算法编程题，给出网上巧妙的算法以及加上自己的一些备注和自己的做法作为面试的题型的储备</p>
+<a id="more"></a>
+<h4 id="1-斐波那契数列：1、1、2、3、5、8、13、21。输入n，输出数列中第n位数的值"><a href="#1-斐波那契数列：1、1、2、3、5、8、13、21。输入n，输出数列中第n位数的值" class="headerlink" title="1.斐波那契数列：1、1、2、3、5、8、13、21。输入n，输出数列中第n位数的值"></a>1.斐波那契数列：1、1、2、3、5、8、13、21。输入n，输出数列中第n位数的值</h4><p>我们通过观察数列的规律，发现当下标i&gt;=1时，当前的值总是等于fn(i-1) - fn(i-2). 比如 2 = 1 - 1，3 = 1 - 2 …<br>那么根据此规律，我们可以用递归解决。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 用node环境运行</span><br><span class="line">const readline &#x3D; require(&#39;readline&#39;)</span><br><span class="line"></span><br><span class="line">const rl &#x3D; readline.createInterface(&#123;</span><br><span class="line">    input: process.stdin,</span><br><span class="line">    output: process.stdout</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F; 核心</span><br><span class="line">function fn(n) &#123;</span><br><span class="line">    if(n &lt;&#x3D; 1) return 1</span><br><span class="line">    return fn(n-1) + fn(n-2)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">rl.on(&#39;line&#39;, function(line)&#123;</span><br><span class="line">    let str &#x3D; line.split(&#39;&#39;)</span><br><span class="line">    let n &#x3D; fn(str)</span><br><span class="line">    console.log(n)</span><br><span class="line">    return n</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-对数组-15-32-12-5-7-6-进行排序"><a href="#2-对数组-15-32-12-5-7-6-进行排序" class="headerlink" title="2.对数组 [15,32,12,5,7,6] 进行排序"></a>2.对数组 [15,32,12,5,7,6] 进行排序</h4><ul>
+<li><p>经典排序</p>
+<p>逻辑：每次比较相邻两个值，如果前面的值大于后面的值，则两个值交换。(内循环)，重复循环比较数组长度次数。(外循环)即可排序得出结果。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const arr &#x3D; [15,32,12,5,7,6]</span><br><span class="line">for(let i &#x3D; 0; i &lt; arr.length - 1; i++) &#123;</span><br><span class="line">    for(let j &#x3D; 0; j &lt; arr.length - i - 1; j++) &#123;</span><br><span class="line">        if(arr[j] &gt; arr[j+1]) &#123;</span><br><span class="line">            let temp &#x3D; arr[j]</span><br><span class="line">            arr[j] &#x3D; arr[j+1]</span><br><span class="line">            arr[j+1] &#x3D; temp</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(arr)</span><br><span class="line">return arr</span><br></pre></td></tr></table></figure>
+<ul>
+<li>原生sort方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const arr &#x3D; [15,32,12,5,7,6]</span><br><span class="line">arr.sort((a,b)&#x3D;&gt; a - b)</span><br><span class="line">console.log(arr)</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-数组去重"><a href="#3-数组去重" class="headerlink" title="3.数组去重"></a>3.数组去重</h4><ul>
+<li>利用es6 set唯一特性</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const arr &#x3D; [5,3,7,8,8,3,10]</span><br><span class="line">function distinct(arr) &#123;</span><br><span class="line">    const set &#x3D; new Set(arr)</span><br><span class="line">    return [...set]</span><br><span class="line">&#125;</span><br><span class="line">console.log(distinct(arr))</span><br><span class="line">distinct(arr)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>往新数组添加不存在的值</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const arr &#x3D; [5,3,7,8,8,3,10]</span><br><span class="line">function distinct(arr) &#123;</span><br><span class="line">    let temp &#x3D; []</span><br><span class="line">    arr.forEach(el &#x3D;&gt; !temp.includes(el) &amp;&amp; temp.push(el))</span><br><span class="line">    return temp</span><br><span class="line">&#125;</span><br><span class="line">console.log(distinct(arr))</span><br><span class="line">distinct(arr)</span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
     <title>手把手教你linux部署nginx</title>
     <url>/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0linux%E9%83%A8%E7%BD%B2nginx/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>目前主流公司如果采取前后分离开发方案的情况，一般前端使用webpack打包会生成dist文件需要部署nginx静态服务器，在window下安装部署nginx十分简单，只需要安装完后丢到ngix安装目录下html目录下， 然后直接在conf文件下配置conf文件即可。然后打开localhost可以看到效果，那在linux是怎么部署呢？接下来我们在linux部署ngix</p>
@@ -79,7 +107,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>牛客网前端刷题锦囊(1)</title>
+    <title>牛客网NodeJS输入输出流</title>
     <url>/2020/01/05/%E7%89%9B%E5%AE%A2%E7%BD%91%E5%89%8D%E7%AB%AF%E5%88%B7%E9%A2%98%E9%94%A6%E5%9B%8A/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>相信小伙伴们面试各类公司除了传统笔试，更多面对是如牛客网这样网上在线编程笔试。但是由于牛客网对前端语言js支持不太友好，导致小伙伴们都不太清楚编程题如何输入输出答案(js解释性语言真不好做输出输入流，建议用nodejs吧，语法基本一样)</p>
 <a id="more"></a>
@@ -220,7 +248,7 @@
 
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function fun()&#123;</span><br><span class="line">     echo &quot;这是一句非常牛逼的代码&quot;;</span><br><span class="line">&#125;</span><br><span class="line">fun();</span><br></pre></td></tr></table></figure>
 
-<h4 id="10-内容过多隐藏为显示更多"><a href="#10-内容过多隐藏为显示更多" class="headerlink" title="10 内容过多隐藏为显示更多"></a>10 内容过多隐藏为显示更多</h4><p>在你需要截取的内容输入&lt;! –more–&gt;就可以了</p>
+<h4 id="10-内容过多隐藏为显示更多"><a href="#10-内容过多隐藏为显示更多" class="headerlink" title="10 内容过多隐藏为显示更多"></a>10 内容过多隐藏为显示更多</h4><p>在你需要截取的内容输入&lt;! – more –&gt;就可以了</p>
 ]]></content>
   </entry>
   <entry>
@@ -306,6 +334,18 @@
 <p> 完成后还是在项目根目录下我们安装deploy-git ，也就是部署的命令,这样你才能用命令部署到GitHub。<br> <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><br>编译生成文件</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean // hexo clean清除了你之前生成的东西，也可以不加。</span><br><span class="line">hexo generate //hexo generate 生成静态文章，可以用 hexo g缩写</span><br><span class="line">hexo deploy // 部署文章，可以用hexo d缩写</span><br></pre></td></tr></table></figure>
 <p> 注意deploy时可能要你输入username和password。<br> 在命令行看到上传文件没有报错， 请输入<a href="http://yourname.github.io" target="_blank" rel="noopener">http://yourname.github.io</a> 这个网站看到你的博客了。</p>
+<h3 id="8-部署到码云-国内环境"><a href="#8-部署到码云-国内环境" class="headerlink" title="8.部署到码云(国内环境)"></a>8.部署到码云(国内环境)</h3><p> 1.首先去码云注册你的账号，然后点击新建仓库这个过程十分简单就不贴图了。</p>
+<p> 2.点击我的码云，下拉到你的仓库点击进入，选取上方的管理进入到基本设置。我们会看到路径设置出现默认的url：<a href="https://gitee.com/yourname/" target="_blank" rel="noopener">https://gitee.com/yourname/</a> ，那么这里建议选项输入跟你名字一样的路径, 这样你可以直接用一级域名访问</p>
+<p><img src="http://q3mbriqrc.bkt.clouddn.com/hexo11.png" alt="avatar"></p>
+<p> 3.生成SSH添加到码云</p>
+<p> 跟上面生成SSH到github是一样, 如果你同样用相同邮箱注册码云账号， 可以到相同位置找到公钥文件，打开后 把内容复制到上图部署公钥管理-添加公钥里面</p>
+<p> 4.配置</p>
+<p> 我们打开项目目录下站点配置文件 _config.yml，翻到最后，添加上传分类。当然你要上传那个就注释另外那个就好了。</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">url: https://gitee.com/yourname</span><br><span class="line">root: /yourname/</span><br></pre></td></tr></table></figure>
+
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: </span><br><span class="line">    <span class="comment"># github: https://github.com/YourgithubName/YourgithubName.github.io.git,master</span></span><br><span class="line">    gitee:  https://gitee.com//yourname.git,master //这里选取你建立的仓库跟你的名字是一样</span><br></pre></td></tr></table></figure>
+<p> 5.上传<br> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure><br> 6.启动服务器</p>
+<p> 点击上面下面服务，点击Gitee Pages, 然后进入界面按启动就好。之后打开网站就可以看到网站了。<br> <img src="http://q3mbriqrc.bkt.clouddn.com/hexo12.png" alt="avatar"></p>
 ]]></content>
   </entry>
 </search>
