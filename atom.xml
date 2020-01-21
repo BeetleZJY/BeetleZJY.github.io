@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-10T15:34:34.853Z</updated>
+  <updated>2020-01-21T14:02:50.141Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Nodejs学习笔记(2)</title>
+    <link href="http://yoursite.com/2020/01/20/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/"/>
+    <id>http://yoursite.com/2020/01/20/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/</id>
+    <published>2020-01-20T14:24:52.000Z</published>
+    <updated>2020-01-21T14:02:50.141Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;console模块&quot;&gt;&lt;a href=&quot;#console模块&quot; class=&quot;headerlink&quot; title=&quot;console模块&quot;&gt;&lt;/a&gt;console模块&lt;/h3&gt;&lt;h4 id=&quot;日志都是默认打印到控制台。最常用的是console-log-、console-error-两个方法。&quot;&gt;&lt;a href=&quot;#日志都是默认打印到控制台。最常用的是console-log-、console-error-两个方法。&quot; class=&quot;headerlink&quot; title=&quot;日志都是默认打印到控制台。最常用的是console.log()、console.error()两个方法。&quot;&gt;&lt;/a&gt;日志都是默认打印到控制台。最常用的是console.log()、console.error()两个方法。&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;console.log(msg)：普通日志打印。&lt;/li&gt;
+&lt;li&gt;console.error(msg)：错误日志打印。&lt;/li&gt;
+&lt;li&gt;console.info(msg)：等同于console.log(msg)&lt;/li&gt;
+&lt;li&gt;console.warn(msg)：等同于console.error(msg)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;console打印一些小技巧输出变量-定义name-‘jack’。&quot;&gt;&lt;a href=&quot;#console打印一些小技巧输出变量-定义name-‘jack’。&quot; class=&quot;headerlink&quot; title=&quot;console打印一些小技巧输出变量 定义name = ‘jack’。&quot;&gt;&lt;/a&gt;console打印一些小技巧输出变量 定义name = ‘jack’。&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;console.log(&lt;code&gt;你好${name}&lt;/code&gt; // 输出你好jack&lt;/li&gt;
+&lt;li&gt;console.log(‘你好%s’，name) // 输出你好jack
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Nodejs学习笔记(1)</title>
@@ -38,7 +63,7 @@
     <link href="http://yoursite.com/2020/01/07/%E7%89%9B%E5%AE%A2%E7%BD%91%E5%89%8D%E7%AB%AF%E7%BC%96%E7%A8%8B%E7%AE%97%E6%B3%95-1/"/>
     <id>http://yoursite.com/2020/01/07/%E7%89%9B%E5%AE%A2%E7%BD%91%E5%89%8D%E7%AB%AF%E7%BC%96%E7%A8%8B%E7%AE%97%E6%B3%95-1/</id>
     <published>2020-01-07T12:34:10.000Z</published>
-    <updated>2020-01-08T15:01:46.226Z</updated>
+    <updated>2020-01-12T15:03:38.752Z</updated>
     
     <summary type="html">
     

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="前端技术，js, boostrap, vue, wepack, tyepscript, nodejs，express, nextjs" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Nodejs学习笔记(2) |  ZJY Blog Share
+  </title>
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ZJY Blog Share" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-Nodejs学习笔记-2" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Nodejs学习笔记(2)
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/01/20/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/" class="article-date">
+  <time datetime="2020-01-20T14:24:52.000Z" itemprop="datePublished">2020-01-20</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h3 id="console模块"><a href="#console模块" class="headerlink" title="console模块"></a>console模块</h3><h4 id="日志都是默认打印到控制台。最常用的是console-log-、console-error-两个方法。"><a href="#日志都是默认打印到控制台。最常用的是console-log-、console-error-两个方法。" class="headerlink" title="日志都是默认打印到控制台。最常用的是console.log()、console.error()两个方法。"></a>日志都是默认打印到控制台。最常用的是console.log()、console.error()两个方法。</h4><ul>
+<li>console.log(msg)：普通日志打印。</li>
+<li>console.error(msg)：错误日志打印。</li>
+<li>console.info(msg)：等同于console.log(msg)</li>
+<li>console.warn(msg)：等同于console.error(msg)</li>
+</ul>
+<h4 id="console打印一些小技巧输出变量-定义name-‘jack’。"><a href="#console打印一些小技巧输出变量-定义name-‘jack’。" class="headerlink" title="console打印一些小技巧输出变量 定义name = ‘jack’。"></a>console打印一些小技巧输出变量 定义name = ‘jack’。</h4><ul>
+<li>console.log(<code>你好${name}</code> // 输出你好jack</li>
+<li>console.log(‘你好%s’，name) // 输出你好jack<a id="more"></a>
+
+</li>
+</ul>
+<h4 id="console-table-打印对象为表格数据，视觉上查看数据比较明了。可输入数组或者对象。"><a href="#console-table-打印对象为表格数据，视觉上查看数据比较明了。可输入数组或者对象。" class="headerlink" title="console.table 打印对象为表格数据，视觉上查看数据比较明了。可输入数组或者对象。"></a>console.table 打印对象为表格数据，视觉上查看数据比较明了。可输入数组或者对象。</h4><ul>
+<li>console.table({<br> id: 0100,<br> name: ‘jack’,<br> age: 15,<br> hobby: ‘movie’<br>})</li>
+<li>console.table([‘apple’，’pear’,  ‘banana’])<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">┌─────────┬─────────┐</span><br><span class="line">│ (index) │ Values  │</span><br><span class="line">├─────────┼─────────┤</span><br><span class="line">│   id    │   64    │</span><br><span class="line">│  name   │ &#39;jack&#39;  │</span><br><span class="line">│   age   │   15    │</span><br><span class="line">│  hobby  │ &#39;movie&#39; │</span><br><span class="line">└─────────┴─────────┘</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="console-time计时，一般用来测试性能或者请求时间，必须定义同一个tag，单位为毫秒。"><a href="#console-time计时，一般用来测试性能或者请求时间，必须定义同一个tag，单位为毫秒。" class="headerlink" title="console.time计时，一般用来测试性能或者请求时间，必须定义同一个tag，单位为毫秒。"></a>console.time计时，一般用来测试性能或者请求时间，必须定义同一个tag，单位为毫秒。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 统计程序时间或者响应时间， console.time 单位时间为毫秒 </span><br><span class="line"></span><br><span class="line">let arr &#x3D; new Array(1000000)</span><br><span class="line">arr.fill(1) &#x2F;&#x2F; 从起始位置到最后，填充数组元素</span><br><span class="line"></span><br><span class="line">console.time(&#39;for&#39;)</span><br><span class="line">for(let i &#x3D; 0; i &lt; arr.length; i++) &#123;  </span><br><span class="line">&#125;   </span><br><span class="line">console.timeEnd(&#39;for&#39;)</span><br><span class="line"></span><br><span class="line">console.time(&#39;forEach&#39;)</span><br><span class="line">arr.forEach(el &#x3D;&gt; &#123;</span><br><span class="line">&#125;)</span><br><span class="line">console.timeEnd(&#39;forEach&#39;)</span><br><span class="line"></span><br><span class="line">&#x2F;* 100000 循环比较for循环和forEach</span><br><span class="line">for: 2.106ms</span><br><span class="line">forEach: 2.476ms</span><br><span class="line">*&#x2F;</span><br><span class="line"></span><br><span class="line">&#x2F;* 1000000 循环比较for循环和forEach</span><br><span class="line">for: 2.365ms</span><br><span class="line">forEach: 12.295ms</span><br><span class="line">*&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h4 id="console-assert-value-message-进行断言。"><a href="#console-assert-value-message-进行断言。" class="headerlink" title="console.assert(value, message) 进行断言。"></a>console.assert(value, message) 进行断言。</h4><p>node 10.0版本以上 使用非真的断言调用 console.assert() 只会导致打印 message 到控制台而不会中断后续代码的执行。<br>node 10.0版本以下 如果value不为true，那么抛出<code>AssertionError</code>异常，并中断程序执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">console.assert(false, &quot;get Wrong&quot;) &#x2F;&#x2F;输出错误</span><br><span class="line"></span><br><span class="line">console.assert(true, &quot;get Right&quot;) &#x2F;&#x2F; true 不处理</span><br><span class="line">console.log(123) &#x2F;&#x2F; 新版本还是输出123， 不会中断代码</span><br></pre></td></tr></table></figure>
+
+<h4 id="console-dir-obj-options-打印大型复杂对象"><a href="#console-dir-obj-options-打印大型复杂对象" class="headerlink" title="console.dir(obj[, options]), 打印大型复杂对象"></a>console.dir(obj[, options]), 打印大型复杂对象</h4><p>options 选项， 一般用来打印对象</p>
+<ul>
+<li>showHidden <boolean> 如果为 true，则也会显示对象的不可枚举属性和符号属性。默认值: false。</li>
+<li>depth <number> 告诉 util.inspect() 格式化对象时要递归多少次。这对于检查大型复杂对象很有用。要使其无限递归，可传入 null。默认值: 2。</li>
+<li>colors <boolean> 如果为 true，则输出将使用 ANSI 颜色代码进行样式设置。颜色可定制，请参阅自定义 util.inspect() 颜色。默认值: false。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">const obj &#x3D; &#123;</span><br><span class="line">    name: &#39;tree1&#39;,</span><br><span class="line">    child: &#123;</span><br><span class="line">        name: &#39;tree2&#39;,</span><br><span class="line">        child: &#123;</span><br><span class="line">            name: &#39;tree3&#39;,</span><br><span class="line">            child: &#123;</span><br><span class="line">                name: &#39;tree4&#39;,</span><br><span class="line">                child: &#123;</span><br><span class="line">                    name: &#39;tree5&#39;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(obj)</span><br><span class="line">console.dir(obj, &#123;depth: null&#125;)</span><br><span class="line">&#x2F;&#x2F; 输出</span><br><span class="line">&#x2F;*</span><br><span class="line">&#123;</span><br><span class="line">  name: &#39;tree1&#39;,</span><br><span class="line">  child: &#123; name: &#39;tree2&#39;, child: &#123; name: &#39;tree3&#39;, child: [Object] &#125; &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">  name: &#39;tree1&#39;,</span><br><span class="line">  child: &#123;</span><br><span class="line">    name: &#39;tree2&#39;,</span><br><span class="line">    child: &#123;</span><br><span class="line">      name: &#39;tree3&#39;,</span><br><span class="line">      child: &#123; name: &#39;tree4&#39;, child: &#123; name: &#39;tree5&#39; &#125; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">*&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h4 id="new-Console-stdout-stderr-ignoreErrors"><a href="#new-Console-stdout-stderr-ignoreErrors" class="headerlink" title="new Console(stdout[, stderr][, ignoreErrors])"></a>new Console(stdout[, stderr][, ignoreErrors])</h4><p>一般用来在文本输出打印信息。第一个输出信息，第二个错误打印信息， 如果只有第一个输出选项， 所有调试信息都在第一个文本信息。 如果有第二个选项， 则error和warn信息都会进入定义第二个选项文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const fs &#x3D; require(&#39;fs&#39;)</span><br><span class="line">const output &#x3D; fs.createWriteStream(&#39;.&#x2F;info.txt&#39;)</span><br><span class="line">const errput &#x3D; fs.createWriteStream(&#39;.&#x2F;err.txt&#39;)</span><br><span class="line">const logger &#x3D; new console.Console(output, errput)</span><br><span class="line">logger.log(&#39;This is output test1&#39;) </span><br><span class="line">logger.info(&#39;This is output test2&#39;)</span><br><span class="line">logger.warn(&#39;FBI warning&#39;)</span><br><span class="line">logger.error(&#39;This has mistakes&#39;)</span><br><span class="line">&#x2F;**</span><br><span class="line">info.txt 输出 This is output test1， This is output test2</span><br><span class="line">err.txt 输出 FBI warning ， This has mistakes</span><br><span class="line">*&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h4 id="console-group用于打印一组信息，后续行会往后推后两个"><a href="#console-group用于打印一组信息，后续行会往后推后两个" class="headerlink" title="console.group用于打印一组信息，后续行会往后推后两个"></a>console.group用于打印一组信息，后续行会往后推后两个</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">console.group(&#39;No.1&#39;)</span><br><span class="line">console.log(&quot;第一&quot;)</span><br><span class="line">console.log(&quot;第二&quot;)</span><br><span class="line">console.log(&quot;第三&quot;)</span><br><span class="line">console.log(&quot;第四&quot;)</span><br><span class="line">&#x2F;* 输出</span><br><span class="line">No.1</span><br><span class="line">  第一</span><br><span class="line">  第二</span><br><span class="line">  第三</span><br><span class="line">  第四</span><br><span class="line"> *&#x2F;</span><br></pre></td></tr></table></figure>
+<h4 id="console-trace追踪调用轨迹"><a href="#console-trace追踪调用轨迹" class="headerlink" title="console.trace追踪调用轨迹"></a>console.trace追踪调用轨迹</h4><p>此方法可以跟踪函数的调用轨迹。如果需要知道一个函数的调用轨迹，那么可以将此方法写在函数内部即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function add(a,b)&#123;</span><br><span class="line">    console.trace();</span><br><span class="line">    return a+b;</span><br><span class="line">  &#125;</span><br><span class="line">  var x &#x3D; add3(1,1); </span><br><span class="line">  function add3(a,b)&#123;return add2(a,b);&#125;</span><br><span class="line">  function add2(a,b)&#123;return add1(a,b);&#125;</span><br><span class="line">  function add1(a,b)&#123;return add(a,b);&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/01/20/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/" data-id="ck5nvsdhb0000z0sy08vd0s73"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/01/08/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Nodejs学习笔记(1)</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: '',
+        app_key: '',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2015-2020
+        zjy
+      </li>
+      <li>
+        
+          Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>PV:<span id="busuanzi_value_page_pv"></span></li>
+  <li>UV:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    
+    <aside class="sidebar">
+      
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="ZJY Blog Share"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">目录</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/%E9%A1%B9%E7%9B%AE/index.html">视频</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about/index.html">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  
+  
+  </div>
+</body>
+
+</html>
