@@ -41,7 +41,7 @@
 <li>a+ ：以读取追加模式打开文件，如果文件不存在则创建。</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 例子: 用open打开文件进行读取后面再进行写入后再读取, 之一默认flags 是&#39;r&#39;, 只有读取权限. 如果不更改无法进行写入操作. 另外建议open之后手动close()</span><br><span class="line">const fs &#x3D; require(&#39;fs&#39;);</span><br><span class="line">const fsPromises &#x3D; fs.promises;</span><br><span class="line">(async()&#x3D;&gt;&#123;</span><br><span class="line">    let fileHandle &#x3D; awaitfsPromises.open(&#39;appendFile.txt&#39;,&#39;r+&#39;).catch(error&#x3D;&gt;console.log(&#39;error1：&#39;, error))</span><br><span class="line">    if(!fileHandle) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    const read &#x3D;  await fileHandle.readFile(&#39;utf8&#39;);</span><br><span class="line">    console.log(read);</span><br><span class="line">    const err &#x3D; await fileHandle.writeFile(read + 123).catch(err &#x3D;&gt; err)</span><br><span class="line">    if(err) &#123;</span><br><span class="line">        console.log(err);</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    const newRead &#x3D; await fsPromises.readFile(fileHandle,&#39;utf8&#39;);</span><br><span class="line">    console.log(newRead);</span><br><span class="line">    fileHandle.close() &#x2F;&#x2F; 建议手动close()释放文件资源</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
-<h4 id="stream流"><a href="#stream流" class="headerlink" title="stream流"></a>stream流</h4>]]></content>
+]]></content>
   </entry>
   <entry>
     <title>Nodejs学习笔记-console模块(2)</title>
