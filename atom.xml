@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-02-03T07:36:52.108Z</updated>
+  <updated>2020-02-03T13:18:53.328Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Nodejs学习笔记-path模块(4)</title>
+    <link href="http://yoursite.com/2020/02/03/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-path%E6%A8%A1%E5%9D%97-4/"/>
+    <id>http://yoursite.com/2020/02/03/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-path%E6%A8%A1%E5%9D%97-4/</id>
+    <published>2020-02-03T07:41:00.000Z</published>
+    <updated>2020-02-03T13:18:53.328Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h4&gt;&lt;p&gt;path 模块提供用于处理文件路径和目录路径的实用工具。 它可以使用以下方式访问：const path = require(‘path)&lt;/p&gt;
+&lt;h4 id=&quot;path-posix-basename-path-ext&quot;&gt;&lt;a href=&quot;#path-posix-basename-path-ext&quot; class=&quot;headerlink&quot; title=&quot;path.posix.basename(path[, ext])&quot;&gt;&lt;/a&gt;path.posix.basename(path[, ext])&lt;/h4&gt;&lt;p&gt;path.basename() 方法返回 path 的最后一部分，类似于 Unix 的 basename 命令。因为linux 和window环境兼容问题推荐使用path.posix.basename&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;path.posix.basename(&amp;#39;&amp;#x2F;tmp&amp;#x2F;myfile.html&amp;#39;); &amp;#x2F;&amp;#x2F; 返回: &amp;#39;myfile.html&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;path.posix.basename(&amp;#39;&amp;#x2F;tmp&amp;#x2F;myfile.html&amp;#39;,html); &amp;#x2F;&amp;#x2F; 返回: &amp;#39;myfile&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Nodejs学习笔记-fs模块(3)</title>
