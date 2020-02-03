@@ -60,6 +60,69 @@
 
     
     
+    <article id="post-Nodejs学习笔记-3-fs模块" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/01/23/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-fs%E6%A8%A1%E5%9D%97/"
+    >Nodejs学习笔记-fs模块(3)</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/01/23/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-fs%E6%A8%A1%E5%9D%97/" class="article-date">
+  <time datetime="2020-01-23T14:52:40.000Z" itemprop="datePublished">2020-01-23</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>fs是nodejs核心模块，主要用于文件的文件的操作。由于nodejs v10.0版本以上支持promises版本API，下面所有例子均是采取promises版本。</p>
+<h4 id="fsPromises-access-path-mode"><a href="#fsPromises-access-path-mode" class="headerlink" title="fsPromises.access(path[, mode])"></a>fsPromises.access(path[, mode])</h4><p>测试用户对 path 指定的文件或目录的权限 也可以测试文件或者目录是否存在.一般mode不用管。如果可访问性成功，则 Promise 会被解决且不带值。 如果任何可访问检查失败，则 Promise 会被拒绝并带上 Error 对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const fs &#x3D; require(&#39;fs&#39;);</span><br><span class="line">const fsPromises &#x3D; fs.promises;</span><br><span class="line">fsPromises.access(&#39;..&#x2F;download&#39;)</span><br><span class="line">  .then(() &#x3D;&gt; console.log(&#39;可以访问&#39;))</span><br><span class="line">  .catch((err) &#x3D;&gt; console.error(&#39;不可访问&#39;,err.message));</span><br></pre></td></tr></table></figure>
+      
+      <a class="article-more-link" href="/2020/01/23/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-fs%E6%A8%A1%E5%9D%97/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/01/23/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-fs%E6%A8%A1%E5%9D%97/" data-id="ck5rplgrp0000z4syc0wlg1og"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Nodejs学习笔记-2" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -69,7 +132,7 @@
        
 <h2 itemprop="name">
   <a class="article-title" href="/2020/01/20/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/"
-    >Nodejs学习笔记(2)</a
+    >Nodejs学习笔记-console模块(2)</a
   >
 </h2>
   

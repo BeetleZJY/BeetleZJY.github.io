@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-21T14:02:50.141Z</updated>
+  <updated>2020-02-01T14:20:51.026Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,30 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Nodejs学习笔记(2)</title>
+    <title>Nodejs学习笔记-fs模块(3)</title>
+    <link href="http://yoursite.com/2020/01/23/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-fs%E6%A8%A1%E5%9D%97/"/>
+    <id>http://yoursite.com/2020/01/23/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-fs%E6%A8%A1%E5%9D%97/</id>
+    <published>2020-01-23T14:52:40.000Z</published>
+    <updated>2020-02-01T14:20:51.026Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h4&gt;&lt;p&gt;fs是nodejs核心模块，主要用于文件的文件的操作。由于nodejs v10.0版本以上支持promises版本API，下面所有例子均是采取promises版本。&lt;/p&gt;
+&lt;h4 id=&quot;fsPromises-access-path-mode&quot;&gt;&lt;a href=&quot;#fsPromises-access-path-mode&quot; class=&quot;headerlink&quot; title=&quot;fsPromises.access(path[, mode])&quot;&gt;&lt;/a&gt;fsPromises.access(path[, mode])&lt;/h4&gt;&lt;p&gt;测试用户对 path 指定的文件或目录的权限 也可以测试文件或者目录是否存在.一般mode不用管。如果可访问性成功，则 Promise 会被解决且不带值。 如果任何可访问检查失败，则 Promise 会被拒绝并带上 Error 对象&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;const fs &amp;#x3D; require(&amp;#39;fs&amp;#39;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;const fsPromises &amp;#x3D; fs.promises;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;fsPromises.access(&amp;#39;..&amp;#x2F;download&amp;#39;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  .then(() &amp;#x3D;&amp;gt; console.log(&amp;#39;可以访问&amp;#39;))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  .catch((err) &amp;#x3D;&amp;gt; console.error(&amp;#39;不可访问&amp;#39;,err.message));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Nodejs学习笔记-console模块(2)</title>
     <link href="http://yoursite.com/2020/01/20/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/"/>
     <id>http://yoursite.com/2020/01/20/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/</id>
     <published>2020-01-20T14:24:52.000Z</published>
-    <updated>2020-01-21T14:02:50.141Z</updated>
+    <updated>2020-01-23T14:52:24.290Z</updated>
     
     <summary type="html">
     

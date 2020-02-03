@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="前端技术，js, boostrap, vue, wepack, tyepscript, nodejs，express, nextjs" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Nodejs学习笔记-fs模块(3) |  ZJY Blog Share
+  </title>
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ZJY Blog Share" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-Nodejs学习笔记-3-fs模块" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Nodejs学习笔记-fs模块(3)
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/01/23/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-fs%E6%A8%A1%E5%9D%97/" class="article-date">
+  <time datetime="2020-01-23T14:52:40.000Z" itemprop="datePublished">2020-01-23</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>fs是nodejs核心模块，主要用于文件的文件的操作。由于nodejs v10.0版本以上支持promises版本API，下面所有例子均是采取promises版本。</p>
+<h4 id="fsPromises-access-path-mode"><a href="#fsPromises-access-path-mode" class="headerlink" title="fsPromises.access(path[, mode])"></a>fsPromises.access(path[, mode])</h4><p>测试用户对 path 指定的文件或目录的权限 也可以测试文件或者目录是否存在.一般mode不用管。如果可访问性成功，则 Promise 会被解决且不带值。 如果任何可访问检查失败，则 Promise 会被拒绝并带上 Error 对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const fs &#x3D; require(&#39;fs&#39;);</span><br><span class="line">const fsPromises &#x3D; fs.promises;</span><br><span class="line">fsPromises.access(&#39;..&#x2F;download&#39;)</span><br><span class="line">  .then(() &#x3D;&gt; console.log(&#39;可以访问&#39;))</span><br><span class="line">  .catch((err) &#x3D;&gt; console.error(&#39;不可访问&#39;,err.message));</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h4 id="fsPromises-appendFile-path-data-options"><a href="#fsPromises-appendFile-path-data-options" class="headerlink" title="fsPromises.appendFile(path, data[, options])"></a>fsPromises.appendFile(path, data[, options])</h4><p>异步地将数据追加到文件，如果文件尚不存在则创建该文件。 data 可以是字符串或 Buffer。 Promise 将会在成功时解决，且不带参数。一般options不用管。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">path  &lt;string&gt; | &lt;Buffer&gt; | &lt;URL&gt; | &lt;FileHandle&gt; 文件名或 FileHandle。备注FileHandle是fsPromises.open()返回</span><br><span class="line">data  &lt;string&gt; | &lt;Buffer&gt;</span><br><span class="line">options  &lt;Object&gt; | &lt;string&gt;</span><br><span class="line">    encoding &lt;string&gt; | &lt;null&gt; 默认值: &#39;utf8&#39;。</span><br><span class="line">    mode &lt;integer&gt; 默认值: 0o666。</span><br><span class="line">    flag &lt;string&gt; 参阅支持的文件系统标志。默认值: &#39;a&#39;。</span><br><span class="line">返回: &lt;Promise&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const fs &#x3D; require(&#39;fs&#39;);</span><br><span class="line">const fsPromises &#x3D; fs.promises;</span><br><span class="line">fsPromises.appendFile(&#39;appendFile.txt&#39;,&#39;tes1\n&#39;).then(()&#x3D;&gt;&#123;</span><br><span class="line">    console.log(&#39;添加成功&#39;);</span><br><span class="line">&#125;).catch((err)&#x3D;&gt;&#123;</span><br><span class="line">    console.log(&quot;添加失败&quot;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="fsPromises-chmod-path-mode"><a href="#fsPromises-chmod-path-mode" class="headerlink" title="fsPromises.chmod(path, mode)"></a>fsPromises.chmod(path, mode)</h4><p>一般用于linux更改文件的权限，然后在成功时解决 Promise 且不带参数。mode一般可以输入777，其中a,b,c各为一个数字，分别表示User（User 表示该档案的拥有者）、Group（Group 表示与该档案的拥有者属于同一个群体(group)者）、及Other（Other 表示其他以外的人）的权限。r=4(read读)，w=2(write写)，x=1(excute？执行)<br>分别表示User、Group、及Other的权限。<br>7 代表 4 + 2 + 1 = 读 + 写 + 执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const fs &#x3D; require(&#39;fs&#39;);</span><br><span class="line">const fsPromises &#x3D; fs.promises;</span><br><span class="line">const path &#x3D; &#39;appendFile.txt&#39;;</span><br><span class="line">const mode &#x3D; 666;</span><br><span class="line">fsPromises.chmod(path, mode)</span><br><span class="line">.then(()&#x3D;&gt;&#123;</span><br><span class="line">    console.log(&#96;$&#123;path&#125;修改权限$&#123;mode&#125; 成功&#96;);</span><br><span class="line">&#125;).catch(()&#x3D;&gt;&#123;</span><br><span class="line">    console.log(&#96;$&#123;path&#125;修改权限$&#123;mode&#125; 失败&#96;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="fsPromises-copyFile-src-dest-flags"><a href="#fsPromises-copyFile-src-dest-flags" class="headerlink" title="fsPromises.copyFile(src, dest[, flags])"></a>fsPromises.copyFile(src, dest[, flags])</h4><p>异步地将 src 拷贝到 dest。 默认情况下，如果 dest 已经存在，则覆盖它。 Promise 将会在成功时解决，且不带参数。<br>Node.js 不保证拷贝操作的原子性。 如果在打开目标文件用于写入后发生错误，则 Node.js 将尝试删除目标文件。<br>添加第三个参数flag fs.constants.COPYFILE_EXCL - 如果 dest 已存在，则拷贝操作将失败。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fsPromises.copyFile(src, dest, fs.constants.COPYFILE_EXCL).then(()&#x3D;&gt;&#123;</span><br><span class="line">    console.log(&#39;复制成功&#39;);</span><br><span class="line">&#125;).catch(()&#x3D;&gt;&#123;</span><br><span class="line">    console.log(&#39;复制失败&#39;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="fsPromises-readdir-path-options"><a href="#fsPromises-readdir-path-options" class="headerlink" title="fsPromises.readdir(path[, options])"></a>fsPromises.readdir(path[, options])</h4><p>可选的 options 参数可以是指定编码的字符串，也可以是具有 encoding 属性的对象，该属性指定用于文件名的字符编码。 如果 encoding 设置为 ‘buffer’，则返回的文件名是 Buffer 对象。<br>如果 options.withFileTypes 设置为 true，则解决的数组将包含 fs.Dirent 对象。<br>建议设置options.withFileTypes 设置为 true, 后面返回fs.Dirent 对象可以使用is<br>Directory(),isFile() 判断文件类型进行后续操作.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const fs &#x3D; require(&#39;fs&#39;);</span><br><span class="line">const fsPromises &#x3D; fs.promises;</span><br><span class="line">const path &#x3D; require(&#39;path&#39;);</span><br><span class="line">fsPromises.readdir(__dirname,&#123;withFileTypes:true&#125;).then((direntArr)&#x3D;&gt;&#123;</span><br><span class="line">    for(let file of direntArr) &#123;</span><br><span class="line">        console.log(&#96;$&#123;file.isDirectory()?&#39;目录&#39;:&#39;文件&#39;&#125;:$&#123;file.name&#125;&#96;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).catch((err)&#x3D;&gt;&#123;</span><br><span class="line">    console.log(err)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="fsPromises-readFile-path-options"><a href="#fsPromises-readFile-path-options" class="headerlink" title="fsPromises.readFile(path[, options])"></a>fsPromises.readFile(path[, options])</h4><p>异步地读取文件的全部内容。<br>Promise 被解决时会带上文件的内容。 如果没有指定字符编码（使用 options.encoding），则数据会以 Buffer 对象返回。 否则，数据将会是一个字符串。<br>如果 options 是字符串，则它指定字符编码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const fs &#x3D; require(&#39;fs&#39;);</span><br><span class="line">const fsPromises &#x3D; fs.promises;</span><br><span class="line">fsPromises.readFile(&#39;readdir.js&#39;,&#39;utf8&#39;).then(str &#x3D;&gt; &#123;</span><br><span class="line">    console.log(str);</span><br><span class="line">&#125;).catch(err &#x3D;&gt; &#123;</span><br><span class="line">    console.log(err);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="fsPromises-rename-oldPath-newPath"><a href="#fsPromises-rename-oldPath-newPath" class="headerlink" title="fsPromises.rename(oldPath, newPath)"></a>fsPromises.rename(oldPath, newPath)</h3><p>将 oldPath 重命名为 newPath，然后在成功时解决 Promise 且不带参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const fs &#x3D; require(&#39;fs&#39;);</span><br><span class="line">const fsPromises &#x3D; fs.promises;</span><br><span class="line">fsPromises.writeFile(&#39;test1.txt&#39;, &#39;test1&#39;, &#39;utf8&#39;).then(()&#x3D;&gt;&#123;</span><br><span class="line">    return fsPromises.rename(&#39;test1.txt&#39;,&#39;test2.txt&#39;);</span><br><span class="line">&#125;).then(()&#x3D;&gt;&#123;</span><br><span class="line">    console.log(&#39;命名成功&#39;);</span><br><span class="line">&#125;)</span><br><span class="line">.catch(err&#x3D;&gt;&#123;</span><br><span class="line">    console.log(err);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="fsPromises-rmdir-path-options"><a href="#fsPromises-rmdir-path-options" class="headerlink" title="fsPromises.rmdir(path[, options])"></a>fsPromises.rmdir(path[, options])</h4><p>删除目录 node v12.10.0    增加options 参数<br>recursive <boolean> 如果为 true，则执行递归的目录删除。在递归模式中，如果 path 不存在则不报告错误，并且在失败时重试操作。默认值: false<br>比如实现这个需求, 删除一个文件夹(清空所有文件夹和内容)<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const fs &#x3D; require(&#39;fs&#39;);</span><br><span class="line">const fsPromises &#x3D; fs.promises;</span><br><span class="line">const path &#x3D; require(&#39;path&#39;);</span><br><span class="line">&#x2F;&#x2F; 存在这样的文件 const file &#x3D; &#39;download&#x2F;static&#x2F;animal&#x2F;test2.js&#39;, 要清空download文件夹</span><br><span class="line">const removeDir &#x3D; &#39;download&#39;;</span><br><span class="line">fsPromises.rmdir(removeDir,&#123;recursive: true&#125;) &#x2F;&#x2F;v12.00版本可以这样实现, 但是官方目前还具有实验性</span><br></pre></td></tr></table></figure><br>  可以采取下面的方法兼容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 采取同步的方法是因为这里用递归本,如果用异步是无法保证删除顺序.</span><br><span class="line">const cleanDir &#x3D; (dir) &#x3D;&gt; &#123;</span><br><span class="line">    const childdir &#x3D; fs.readdirSync(dir,&#123;withFileTypes: true&#125;)</span><br><span class="line">    for (const file of childdir) &#123;</span><br><span class="line">        const current &#x3D; path.join(dir, file.name)</span><br><span class="line">        if(file.isDirectory() ) &#123;</span><br><span class="line">            cleanDir(current)</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            fs.unlinkSync(current);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    fs.rmdirSync(dir);</span><br><span class="line">&#125;</span><br><span class="line">cleanDir(removeDir);</span><br></pre></td></tr></table></figure>
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/01/23/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-fs%E6%A8%A1%E5%9D%97/" data-id="ck5rplgrp0000z4syc0wlg1og"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/01/20/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Nodejs学习笔记-console模块(2)</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: '',
+        app_key: '',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2015-2020
+        zjy
+      </li>
+      <li>
+        
+          Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>PV:<span id="busuanzi_value_page_pv"></span></li>
+  <li>UV:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    
+    <aside class="sidebar">
+      
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="ZJY Blog Share"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">目录</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/%E9%A1%B9%E7%9B%AE/index.html">视频</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about/index.html">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  
+  
+  </div>
+</body>
+
+</html>
