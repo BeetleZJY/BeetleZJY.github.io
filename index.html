@@ -60,6 +60,70 @@
 
     
     
+    <article id="post-Nodejs学习笔记-stream模块-5" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/03/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-stream%E6%A8%A1%E5%9D%97-5/"
+    >Nodejs学习笔记-stream模块(5)</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/03/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-stream%E6%A8%A1%E5%9D%97-5/" class="article-date">
+  <time datetime="2020-02-03T13:20:53.000Z" itemprop="datePublished">2020-02-03</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>流（stream）是 Node.js 中处理流式数据的抽象接口。 stream 模块用于构建实现了流接口的对象。fs与流都可以处理文件，为什么还要用流?</p>
+<ul>
+<li>fs模块处理文件的缺点：将文件的数据全读到内存中，在把数据写到文件内，会大量占用内存.</li>
+<li>流：流（stream）是 Node.js 中处理流式数据的抽象接口，是一组有序的，有起点和终点的字节数据传输手段。可以实现将数据从一个地方流动到另一个地方，其边读取边写入的特点有别于fs模块的文件处理，并且可以做到控制读取文件和写入文件的速度，从而减少内存的占用
+      
+      <a class="article-more-link" href="/2020/02/03/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-stream%E6%A8%A1%E5%9D%97-5/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/03/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-stream%E6%A8%A1%E5%9D%97-5/" data-id="ck67kgniv00000ksygy1h8sxy"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Nodejs学习笔记-path模块-4" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -625,74 +689,14 @@
 
 </article>
     
-    <article id="post-手把手教你撸Hexo博客-1" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/01/02/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-1/"
-    >手把手教你撸Hexo博客(1)</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/01/02/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-1/" class="article-date">
-  <time datetime="2020-01-02T15:25:00.000Z" itemprop="datePublished">2020-01-02</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="Hexo简介"><a href="#Hexo简介" class="headerlink" title="Hexo简介"></a>Hexo简介</h2><p>作为前端技术栈，Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的生成静态网页托管在GitHub和Coding上，是搭建博客的首选框架。另外该框架对中文支持十分友好， 大家有兴趣可以<a href="https://hexo.io/" target="_blank" rel="noopener">官网</a>了解下。</p>
-<h3 id="Hexo搭建步骤"><a href="#Hexo搭建步骤" class="headerlink" title="Hexo搭建步骤"></a>Hexo搭建步骤</h3><h4 id="1-安装git"><a href="#1-安装git" class="headerlink" title="1.安装git"></a>1.安装git</h4><p>安装git用于部署代码上传博客静态文件。</p>
-<p><a href="https://npm.taobao.org/mirrors/git-for-windows/" target="_blank" rel="noopener">git淘宝镜像</a>， 下载速度快， window版本直接安装点击下一步完成安装即可。</p>
-<p>linux 安装， 安装完之后输入 git –version 返回版本安装成功。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure>
-      
-      <a class="article-more-link" href="/2020/01/02/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-1/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/01/02/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-1/" data-id="ck58bpkbp0002zosyhz45dg7a"
-        class="article-share-link">分享</a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
   </article>
   
 
+  
+  <nav class="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+  </nav>
   
 </section>
 </div>

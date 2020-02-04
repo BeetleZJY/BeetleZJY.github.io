@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-02-03T13:18:53.328Z</updated>
+  <updated>2020-02-04T15:39:41.751Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Nodejs学习笔记-stream模块(5)</title>
+    <link href="http://yoursite.com/2020/02/03/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-stream%E6%A8%A1%E5%9D%97-5/"/>
+    <id>http://yoursite.com/2020/02/03/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-stream%E6%A8%A1%E5%9D%97-5/</id>
+    <published>2020-02-03T13:20:53.000Z</published>
+    <updated>2020-02-04T15:39:41.751Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h4&gt;&lt;p&gt;流（stream）是 Node.js 中处理流式数据的抽象接口。 stream 模块用于构建实现了流接口的对象。fs与流都可以处理文件，为什么还要用流?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;fs模块处理文件的缺点：将文件的数据全读到内存中，在把数据写到文件内，会大量占用内存.&lt;/li&gt;
+&lt;li&gt;流：流（stream）是 Node.js 中处理流式数据的抽象接口，是一组有序的，有起点和终点的字节数据传输手段。可以实现将数据从一个地方流动到另一个地方，其边读取边写入的特点有别于fs模块的文件处理，并且可以做到控制读取文件和写入文件的速度，从而减少内存的占用
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Nodejs学习笔记-path模块(4)</title>
