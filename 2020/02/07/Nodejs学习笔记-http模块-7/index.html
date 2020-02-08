@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="前端技术，js, boostrap, vue, wepack, tyepscript, nodejs，express, nextjs" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Nodejs学习笔记-http模块(7)-附原生表单上传代码 |  ZJY Blog Share
+  </title>
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ZJY Blog Share" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-Nodejs学习笔记-http模块-7" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Nodejs学习笔记-http模块(7)-附原生表单上传代码
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/07/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-http%E6%A8%A1%E5%9D%97-7/" class="article-date">
+  <time datetime="2020-02-07T07:05:18.000Z" itemprop="datePublished">2020-02-07</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>http模块是常用的核心模块, 继承了net模块的实例, 如果了解net模块基本http模块知识是差别不大的.下面我们从两个方面进行学习:</p>
+<ul>
+<li>服务器server：http.createServer()</li>
+<li>客户端client：http.get()/http.request()</li>
+</ul>
+<h4 id="http-Server类"><a href="#http-Server类" class="headerlink" title="http.Server类"></a>http.Server类</h4><p>下面有http.createServer()创建一个简单的服务器,返回是server类, 我们发现基本方法会和net模块net.createServer()一样.</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const http &#x3D; require(&#39;http&#39;);</span><br><span class="line">http.createServer((req, res) &#x3D;&gt; &#123;</span><br><span class="line">    res.writeHead(200,&#123;&#39;content-type&#39;:  &quot;text&#x2F;html; charset&#x3D;utf-8&quot;&#125;);</span><br><span class="line">    res.end(&#39;&lt;h3&gt;测试服务器创建成功&lt;h3&gt;&#39;,&#39;utf-8&#39;);</span><br><span class="line">&#125;).listen(8888,()&#x3D;&gt;&#123;</span><br><span class="line">    console.info(&#39;监听接口8888,服务器已启动&#39;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>事件有checkContinue、checkExpectation、clientError、close、connect、connection、request、upgrade</p>
+<ul>
+<li>connect：当客户端的HTTP method为connect时触发。</li>
+<li>connection：当TCP连接建立时触发，大部分时候可以忽略这个事件（目测模块内部自己用到而已）。此外，可以通过 req.connection 来获取这个socket</li>
+<li>request: 每次请求都会触发, 如果请求头有keep-alive,在持久化连接的情况下，多个请求可能对应的是触发一次 connection。</li>
+</ul>
+<p>其他都不太常用, 了解上面几个可以了.</p>
+<h4 id="http-clientRequest"><a href="#http-clientRequest" class="headerlink" title="http.clientRequest"></a>http.clientRequest</h4><p>此对象由 http.request()/ http.get()返回, 对应net.createConnection(),<br>常用事件分别是 connect、continue、abort、socket、response。</p>
+<ul>
+<li>socket 事件在给定的套接字上启动一个连接。用sokcet事件会把请求头请求体所有信息返回</li>
+<li>response事件此事件仅触发一次。用response事件后, socket事件不会触发,而且只会返回res.write()和end()的内容</li>
+<li>connect  使用CONNECT 方法响应请求时都会触发</li>
+<li>abort 事件 中断请求, 使用client.abort()触发</li>
+<li>continue 当服务器发送 100 Continue, 用的比较少</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">const http &#x3D; require(&#39;http&#39;);</span><br><span class="line">const server &#x3D; http.createServer(function(req, res)&#123;;</span><br><span class="line">   </span><br><span class="line">&#125;);</span><br><span class="line">server.listen(8888,()&#x3D;&gt;&#123;</span><br><span class="line">    console.info(&#39;监听接口8888,服务器已启动&#39;);</span><br><span class="line">&#125;);</span><br><span class="line">server.on(&#39;request&#39;,function(req, res)&#123;</span><br><span class="line">    if(req.url &#x3D;&#x3D;&#x3D; &#39;&#x2F;favicon.ico&#39;) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    res.writeHead(200,&#123;&#39;content-type&#39;:  &quot;text&#x2F;html; charset&#x3D;utf-8&quot;&#125;);</span><br><span class="line">    res.end(&#39;&lt;h3&gt;测试服务器创建成功&lt;h3&gt;&#39;,&#39;utf-8&#39;);</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F;进行get请求</span><br><span class="line"></span><br><span class="line">const client &#x3D; http.get(&#39;http:&#x2F;&#x2F;localhost:8888&#39;,function(res)&#123;</span><br><span class="line">    console.log(&#39;客服端收到请求结束&#39;);</span><br><span class="line">&#125;)</span><br><span class="line">client.on(&#39;abort&#39;, function(err)&#123;</span><br><span class="line">    console.log(&#39;客户端触发absort&#39;);</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F; 用sokcet事件会把请求头请求体所有信息返回</span><br><span class="line">client.on(&#39;socket&#39;, function(socket)&#123;</span><br><span class="line">    console.log(&#39;客户端触发socket事件&#39;);</span><br><span class="line">    let data &#x3D; &#39;&#39;</span><br><span class="line">    socket.on(&#39;data&#39;, (chunk) &#x3D;&gt; &#123;</span><br><span class="line">        data +&#x3D; chunk</span><br><span class="line">    &#125;)</span><br><span class="line">    socket.on(&#39;end&#39;, (chunk) &#x3D;&gt; &#123;</span><br><span class="line">        console.log(data);</span><br><span class="line">        &#x2F;*返回</span><br><span class="line">        HTTP&#x2F;1.1 200 OK</span><br><span class="line">        content-type: text&#x2F;html; charset&#x3D;utf-8</span><br><span class="line">        Date: Fri, 07 Feb 2020 08:12:46 GMT</span><br><span class="line">        Connection: close</span><br><span class="line">        Transfer-Encoding: chunked</span><br><span class="line"></span><br><span class="line">        23</span><br><span class="line">        &lt;h3&gt;测试服务器创建成功&lt;h3&gt;</span><br><span class="line">        0</span><br><span class="line">        *&#x2F;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F; 此事件仅触发一次。用response事件socket事件不会触发,而且只会返回res.write()和end()的内容</span><br><span class="line">client.on(&#39;response&#39;, function(socket)&#123;</span><br><span class="line">    console.log(&#39;客户端触发response事件&#39;);</span><br><span class="line">    let data &#x3D; &#39;&#39;</span><br><span class="line">    &#x2F;&#x2F; socket.on(&#39;data&#39;, (chunk) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F;     data +&#x3D; chunk</span><br><span class="line">    &#x2F;&#x2F; &#125;)</span><br><span class="line">    &#x2F;&#x2F; socket.on(&#39;end&#39;, (chunk) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F;     console.log(data); &#x2F;&#x2F; 返回&lt;h3&gt;测试服务器创建成功&lt;h3&gt;</span><br><span class="line">    &#x2F;&#x2F; &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">client.on(&#39;timeout&#39;, function(err)&#123;</span><br><span class="line">    console.log(&#39;客户端触发timeout&#39;);</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F;使用connect方法触发</span><br><span class="line">client.on(&#39;connect&#39;,(res, socket, head) &#x3D;&gt; &#123;</span><br><span class="line">    console.log(&#39;客户端触发connect已连接&#39;);</span><br><span class="line">    &#x2F;&#x2F; 通过 HTTP 隧道发出请求。</span><br><span class="line">&#125;);</span><br><span class="line">client.on(&#39;error&#39;,(err) &#x3D;&gt; &#123;</span><br><span class="line">    console.log(&#39;客户端触发err事件&#39; + err.message);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="http-serverResponse"><a href="#http-serverResponse" class="headerlink" title="http.serverResponse"></a>http.serverResponse</h4><p>指http.createServer((req,res) =&gt; {})回调的res, 返回的内容包括：状态代码/状态描述信息、响应头部、响应主体。</p>
+<p>下面我们用一个模拟get请求, 看下serverResponse怎么接收数据</p>
+<p>这里get请求提交比较简单, 主要两点需要注意res.writeHead()以及res.setHeader()区别</p>
+<ul>
+<li><p>res.writeHead() 可以同时设置 statusCode, statusMessage 以及请求头 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">res.writeHead(200, &#39;ok&#39;, &#123;</span><br><span class="line">       &#39;content-type&#39; : &#39;text&#x2F;html;charset&#x3D;utf-8&#39;</span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure></li>
+<li><p>res.setHeader() 只能设置请求头.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">res.setHeader(&#39;Content-Type&#39;, &#39;text&#x2F;html&#39;);</span><br></pre></td></tr></table></figure>
+<p>以上请求头设置可以相互覆盖, 另外还有获取请求头方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 增</span><br><span class="line">res.setHeader(&#39;Content-Type&#39;, &#39;text&#x2F;plain&#39;);</span><br><span class="line">&#x2F;&#x2F; 删</span><br><span class="line">res.removeHeader(&#39;Content-Type&#39;);</span><br><span class="line">&#x2F;&#x2F; 改</span><br><span class="line">res.setHeader(&#39;Content-Type&#39;, &#39;text&#x2F;plain&#39;);</span><br><span class="line">res.setHeader(&#39;Content-Type&#39;, &#39;text&#x2F;html&#39;);  &#x2F;&#x2F; 覆盖</span><br><span class="line">&#x2F;&#x2F; 查</span><br><span class="line">res.getHeader(&#39;content-type&#39;)</span><br></pre></td></tr></table></figure>
+<p>res.write() 以及 res.end() 两个方法主要设置响应主题, 这里看下面get, post例子</p>
+<h4 id="Get请求例子"><a href="#Get请求例子" class="headerlink" title="Get请求例子"></a>Get请求例子</h4></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">const http &#x3D; require(&#39;http&#39;);</span><br><span class="line">const querystring &#x3D; require(&#39;querystring&#39;);</span><br><span class="line">const url &#x3D; require(&#39;url&#39;);</span><br><span class="line">const server &#x3D; http.createServer(function(req, res)&#123;;</span><br><span class="line">    const &#123;query&#125; &#x3D; url.parse(req.url, true);</span><br><span class="line">    console.log(query.page)</span><br><span class="line">    res.writeHead(200, &#39;ok&#39;, &#123;</span><br><span class="line">        &#39;content-type&#39; : &#39;text&#x2F;html;charset&#x3D;utf-8&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">    res.end(&#96;received 客户端请求 , 参数$&#123;query.page&#125;&#96;)</span><br><span class="line">&#125;);</span><br><span class="line">server.listen(8888,()&#x3D;&gt;&#123;</span><br><span class="line">    console.info(&#39;监听接口8888,服务器已启动&#39;);</span><br><span class="line">&#125;);</span><br><span class="line">const client &#x3D; http.get(&#39;http:&#x2F;&#x2F;localhost:8888&#x2F;index.html?page&#x3D;12&#39;,function(res)&#123;</span><br><span class="line">    console.log(&#39;客服端收到请求结束&#39;);</span><br><span class="line">    let data &#x3D; &#39;&#39;;</span><br><span class="line">    res.on(&#39;data&#39;,chunk &#x3D;&gt; &#123;</span><br><span class="line">        data +&#x3D; chunk.toString()</span><br><span class="line">    &#125;)</span><br><span class="line">    res.on(&#39;end&#39;,() &#x3D;&gt; &#123;</span><br><span class="line">        console.log(data)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="Post请求例子"><a href="#Post请求例子" class="headerlink" title="Post请求例子"></a>Post请求例子</h4><p> post请求默认的请求头’Content-Type’: ‘application/x-www-form-urlencoded’,组装请求体要通过queryString.stringify()<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">const http &#x3D; require(&#39;http&#39;);</span><br><span class="line">const querystring &#x3D; require(&#39;querystring&#39;);</span><br><span class="line">const url &#x3D; require(&#39;url&#39;);</span><br><span class="line">const server &#x3D; http.createServer(function(req, res)&#123;;</span><br><span class="line">    let body &#x3D; &#39;&#39;</span><br><span class="line">    req.on(&#39;data&#39;,chunk &#x3D;&gt; &#123;</span><br><span class="line">        body +&#x3D; chunk.toString();</span><br><span class="line">    &#125;)</span><br><span class="line">    req.on(&#39;end&#39;, () &#x3D;&gt; &#123;</span><br><span class="line">        res.end(body)</span><br><span class="line">    &#125;)</span><br><span class="line">   </span><br><span class="line">&#125;);</span><br><span class="line">server.listen(8888,()&#x3D;&gt;&#123;</span><br><span class="line">    console.info(&#39;监听接口8888,服务器已启动&#39;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">const postData &#x3D; querystring.stringify(&#123;</span><br><span class="line">    &#39;msg&#39;: &#39;你好世界&#39;</span><br><span class="line">&#125;);</span><br><span class="line">const options &#x3D; &#123;</span><br><span class="line">    host: &#39;localhost&#39;,</span><br><span class="line">    port: 8888,</span><br><span class="line">    path: &#39;&#x2F;index.html?page&#x3D;12&#39;,</span><br><span class="line">    method: &#39;POST&#39;,</span><br><span class="line">    headers: &#123;</span><br><span class="line">        &#39;Content-Type&#39;: &#39;application&#x2F;x-www-form-urlencoded&#39;,</span><br><span class="line">        &#39;Content-Length&#39;: Buffer.byteLength(postData)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">const client &#x3D; http.request(options,function(res)&#123;</span><br><span class="line">    let body &#x3D; &#39;&#39;</span><br><span class="line">    res.on(&#39;data&#39;,chunk &#x3D;&gt; &#123;</span><br><span class="line">        body +&#x3D; chunk.toString();</span><br><span class="line">    &#125;)</span><br><span class="line">    res.on(&#39;end&#39;, () &#x3D;&gt; &#123;</span><br><span class="line">        body &#x3D; querystring.parse(body)</span><br><span class="line">        console.log(&#39;收到服务端的内容&#39; , body);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 将数据写入请求主体。</span><br><span class="line">client.write(postData);</span><br><span class="line">client.end();</span><br></pre></td></tr></table></figure></p>
+<h4 id="Post表单请求例子"><a href="#Post表单请求例子" class="headerlink" title="Post表单请求例子"></a>Post表单请求例子</h4><p> 一般post文件上传有两种做法一种通过formDat构建通过ajax上传, 另外一种form表单上传<br> 一般用原生post上传文件介绍比较少, 那么我们加深http模块了解, 就通过这个post文件上传学习</p>
+<p> 首先我们建立一个upoad.html文件, 一种是form表单提交方式, 一种是ajax提交(fetch是原生支持ajax, 不清楚百度下), 两种方式都通过二进制流提交服务器.<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"> &lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h3&gt;multipart&#x2F;form-data表单提交&lt;&#x2F;h3&gt;</span><br><span class="line">    &lt;form action&#x3D;&quot;http:&#x2F;&#x2F;localhost:8080&#x2F;upload&quot; method&#x3D;&quot;POST&quot; enctype&#x3D;&quot;multipart&#x2F;form-data&quot;&gt;</span><br><span class="line">        &lt;input type&#x3D;&quot;file&quot; name&#x3D;&quot;file&quot; id&#x3D;&quot;&quot;&gt;&lt;br&#x2F;&gt;</span><br><span class="line">        &lt;input type&#x3D;&quot;submit&quot; value&#x3D;&quot;提交&quot;&gt;</span><br><span class="line">    &lt;&#x2F;form&gt;</span><br><span class="line">    &lt;h3&gt;formData fetch提交&lt;&#x2F;h3&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;file&quot; name&#x3D;&quot;file1&quot; onchange&#x3D;&quot;upload(this)&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script &gt;</span><br><span class="line">         function upload(fileEle) &#123;</span><br><span class="line">            console.log(fileEle.files,fileEle.name)</span><br><span class="line">            let fileName &#x3D; fileEle.name;</span><br><span class="line">            let fileValue &#x3D; fileEle.files[0]</span><br><span class="line">            let formdata &#x3D; new FormData(); &#x2F;&#x2F;构建formData不需要设置请求头, 会自动设置multipart&#x2F;form-data, 有些像axios或者jquery默认是application&#x2F;json, 需要禁止掉,或者设置multipart&#x2F;form-data</span><br><span class="line">            formdata.append(fileName, fileValue)</span><br><span class="line">            fetch(&quot;http:&#x2F;&#x2F;localhost:8080&#x2F;upload&quot;, &#123;</span><br><span class="line">                method: &#39;post&#39;,</span><br><span class="line">                body: formdata,</span><br><span class="line">            &#125;).then(res &#x3D;&gt; &#123;</span><br><span class="line">                console.log(res)</span><br><span class="line">            &#125;)</span><br><span class="line">         &#125;</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure><br>原生的方式会接收包括请求头,请求体等内容, 那么接下来我们了解构服务器收到数据哪些是需要哪些不要, 而难点是在于如何解析上传后的二进制代码;我们先看下面代码格式:<br>这是通过formData解析后获取上传后multipart数据也就是服务器接收的数据格式(就是fetch之后通过浏览器Network请求里面Header里面的FormData对象查看到服务器理论上收到数据)<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> ------WebKitFormBoundaryQ1v6DtGjOiEixFLi</span><br><span class="line">Content-Disposition: form-data; name&#x3D;&quot;file1&quot;; filename&#x3D;&quot;timg.jpg&quot;</span><br><span class="line">Content-Type: image&#x2F;jpeg</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------WebKitFormBoundaryQ1v6DtGjOiEixFLi--</span><br></pre></td></tr></table></figure><br>——WebKitFormBoundaryQ1v6DtGjOiEixFLi 这个属于分隔符, 随机生成的分割数据. 那么这个数据规律如下面, 那为什么会有\r\n, 那是因为我们发现上面存在换行以及首行文字, 对\r\n\不清楚可以在在控制输入看下效果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">整理为如下形式：</span><br><span class="line">&lt;分隔符&gt;\r\n数据描述\r\n\r\n数据值\r\n</span><br><span class="line">&lt;分隔符&gt;\r\n数据描述\r\n\r\n数据值\r\n</span><br><span class="line">&lt;分隔符&gt;\r\n数据描述1\r\n数据描述2\r\n\r\n文件内容\r\n</span><br><span class="line">&lt;分隔符&gt;--</span><br></pre></td></tr></table></figure>
+<p> 那么我们看下这些格式哪些是服务器需要哪些是不需要的?<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">解析数据步骤：</span><br><span class="line">1. 我们用------WebKitFormBoundaryQ1v6DtGjOiEixFLi&lt;分隔符&gt;分隔数据：那么数据如下</span><br><span class="line">[</span><br><span class="line">&#39;&#39;，</span><br><span class="line">\r\n数据描述\r\n\r\n数据值\r\n，</span><br><span class="line">\r\n数据描述\r\n\r\n数据值\r\n，</span><br><span class="line">\r\n数据描述1\r\n数据描述2\r\n\r\n文件内容\r\n，</span><br><span class="line">--</span><br><span class="line">]</span><br><span class="line">2. 把头部空字符和尾部&#39;--&#39;去掉</span><br><span class="line">[</span><br><span class="line">\r\n数据描述\r\n\r\n数据值\r\n，</span><br><span class="line">\r\n数据描述\r\n\r\n数据值\r\n，</span><br><span class="line">\r\n数据描述1\r\n数据描述2\r\n\r\n文件内容\r\n，</span><br><span class="line">]</span><br><span class="line">3. 遍历每一项, 去掉每一项头尾\r\\n</span><br><span class="line">[</span><br><span class="line">数据描述\r\n\r\n数据值，</span><br><span class="line">数据描述\r\n\r\n数据值，</span><br><span class="line">数据描述1\r\n数据描述2\r\n\r\n文件内容，</span><br><span class="line">]</span><br><span class="line">4. 用第一次出现的“\r\n\r\n&quot;切分获取文件的内容</span><br><span class="line">文件类数据：[数据描述1\r\n数据描述2，文件内容]</span><br><span class="line">5. 判断描述内容里面有没有“\r\n”, 有的话要分隔</span><br><span class="line">文件数据：[数据描述1, 数据描述2，文件内容]</span><br></pre></td></tr></table></figure><br> 服务器代码<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"> const http &#x3D; require(&#39;http&#39;);</span><br><span class="line">const queryString &#x3D; require(&#39;querystring&#39;)</span><br><span class="line">const fs &#x3D; require(&#39;fs&#39;);</span><br><span class="line">const fsPromises &#x3D; fs.promises;</span><br><span class="line">const path &#x3D; require(&#39;path&#39;);</span><br><span class="line"></span><br><span class="line">function bufferSplit(buffer, separator) &#123;</span><br><span class="line">    let result &#x3D; [];</span><br><span class="line">    let index &#x3D; 0;</span><br><span class="line">    while ((index &#x3D; buffer.indexOf(separator)) !&#x3D; -1) &#123;</span><br><span class="line">      result.push(buffer.slice(0, index));</span><br><span class="line">      buffer &#x3D; buffer.slice(index + separator.length);</span><br><span class="line">    &#125;</span><br><span class="line">    result.push(buffer);</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http.createServer(function(req, res, next)&#123;</span><br><span class="line">   </span><br><span class="line">    if(req.url &#x3D;&#x3D;&#x3D; &#39;&#x2F;upload&#39;) &#123;</span><br><span class="line">        const boundary &#x3D; &#96;--$&#123;req.headers[&#39;content-type&#39;].split(&#39;; &#39;)[1].split(&#39;&#x3D;&#39;)[1]&#125;&#96;  &#x2F;&#x2F; 获取分隔符</span><br><span class="line">        let arr &#x3D; []</span><br><span class="line"></span><br><span class="line">        req.on(&#39;data&#39;, (buffer) &#x3D;&gt; &#123;</span><br><span class="line">            arr.push(buffer)</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        req.on(&#39;end&#39;, async () &#x3D;&gt; &#123;</span><br><span class="line">            const buffer &#x3D; Buffer.concat(arr)</span><br><span class="line">            &#x2F;&#x2F; console.log(buffer.toString())</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; 1. 用&lt;分隔符&gt;切分数据</span><br><span class="line">            let result &#x3D; bufferSplit(buffer, boundary)</span><br><span class="line">            &#x2F;&#x2F; console.log(result.map(item &#x3D;&gt; item.toString()))</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; 2. 删除数组头尾数据</span><br><span class="line">            result.pop()</span><br><span class="line">            result.shift()</span><br><span class="line">            &#x2F;&#x2F; console.log(result.map(item &#x3D;&gt; item.toString()))</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; 3. 将每一项数据头尾的的\r\n删除</span><br><span class="line">            result &#x3D; result.map(item &#x3D;&gt; item.slice(2, item.length - 2))</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; 4. 将每一项数据中间的\r\n\r\n删除，得到最终结果</span><br><span class="line">            for (let item of result) &#123;</span><br><span class="line">                &#x2F;&#x2F; console.log(bufferSplit(item, &#39;\r\n\r\n&#39;).map(item &#x3D;&gt; item.toString()))</span><br><span class="line">                let [info, data] &#x3D; bufferSplit(item, &#39;\r\n\r\n&#39;)  &#x2F;&#x2F; 数据中含有文件信息，保持为Buffer类型</span><br><span class="line"></span><br><span class="line">                info &#x3D; info.toString()  &#x2F;&#x2F; info为字段信息，这是字符串类型数据，直接转换成字符串，若为文件信息，则数据中含有一个回车符\r\n，可以据此判断数据为文件还是为普通数据。</span><br><span class="line"></span><br><span class="line">                &#x2F;&#x2F; 获取字段名</span><br><span class="line">                let infoResult &#x3D; info.split(&#39;\r\n&#39;)[0].split(&#39;; &#39;)</span><br><span class="line">                let name &#x3D; infoResult[1].split(&#39;&#x3D;&#39;)[1]</span><br><span class="line">                name &#x3D; name.substring(1, name.length - 1)</span><br><span class="line"></span><br><span class="line">                &#x2F;&#x2F; 获取文件名</span><br><span class="line">                let filename &#x3D; infoResult[2].split(&#39;&#x3D;&#39;)[1]</span><br><span class="line">                filename &#x3D; filename.substring(1, filename.length - 1)</span><br><span class="line">                let parseName &#x3D; path.parse(filename);</span><br><span class="line">                console.log(name)</span><br><span class="line">                console.log(filename)</span><br><span class="line">                console.log(parseName);</span><br><span class="line"></span><br><span class="line">                &#x2F;&#x2F; 将文件存储到服务器</span><br><span class="line">                const err &#x3D; await fsPromises.writeFile(&#96;$&#123;parseName.name&#125;$&#123;+ new Date()&#125;.$&#123;parseName.ext&#125;&#96;,data).catch(err&#x3D;&gt;err);</span><br><span class="line">                console.log(err)</span><br><span class="line">                if(err) &#123;</span><br><span class="line">                    res.writeHeader(500,&#39;fail&#39;,&#123;</span><br><span class="line">                        &#39;content-type&#39;: &#39;text&#x2F;html;charset&#x3D;utf-8&#39;</span><br><span class="line">                    &#125;)</span><br><span class="line">                    res.end(err.message)</span><br><span class="line">                    return;</span><br><span class="line">                &#125;</span><br><span class="line">                res.writeHeader(200,&#39;ok&#39;,&#123;</span><br><span class="line">                    &#39;content-type&#39;: &#39;text&#x2F;html;charset&#x3D;utf-8&#39;</span><br><span class="line">                &#125;)</span><br><span class="line">                res.end(&#96;$&#123;filename&#125;上传成功&#96;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;else if (req.url &#x3D;&#x3D;&#x3D; &#39;&#x2F;&#39;) &#123;</span><br><span class="line">        (async () &#x3D;&gt; &#123;</span><br><span class="line">            res.writeHeader(200, &#39;ok&#39;, &#123;</span><br><span class="line">                &#39;content-type&#39;: &#39;text&#x2F;html;charset&#x3D;utf-8&#39;</span><br><span class="line">            &#125;)</span><br><span class="line">            let html &#x3D; await fsPromises.readFile(&#39;upload.html&#39;).catch();</span><br><span class="line">            if(html) &#123;</span><br><span class="line">                res.end(html) </span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">            res.end(&#39;error&#39;)</span><br><span class="line">            </span><br><span class="line">        &#125;)();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).listen(8080);</span><br></pre></td></tr></table></figure></p>
+
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/07/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-http%E6%A8%A1%E5%9D%97-7/" data-id="ck6dpw60q000020syhkza9862"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/02/06/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-net%E6%A8%A1%E5%9D%97-6/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Nodejs学习笔记-net模块(6)</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: '',
+        app_key: '',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2015-2020
+        zjy
+      </li>
+      <li>
+        
+          Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>PV:<span id="busuanzi_value_page_pv"></span></li>
+  <li>UV:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    
+    <aside class="sidebar">
+      
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="ZJY Blog Share"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">目录</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/%E9%A1%B9%E7%9B%AE/index.html">视频</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about/index.html">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  
+  
+  </div>
+</body>
+
+</html>

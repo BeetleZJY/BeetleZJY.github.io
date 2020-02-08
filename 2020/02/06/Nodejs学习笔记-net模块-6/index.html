@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="前端技术，js, boostrap, vue, wepack, tyepscript, nodejs，express, nextjs" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Nodejs学习笔记-net模块(6) |  ZJY Blog Share
+  </title>
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ZJY Blog Share" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-Nodejs学习笔记-net模块-6" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Nodejs学习笔记-net模块(6)
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/06/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-net%E6%A8%A1%E5%9D%97-6/" class="article-date">
+  <time datetime="2020-02-06T12:47:33.000Z" itemprop="datePublished">2020-02-06</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>net模块是同样是nodejs的核心模块, 是用于创建基于流的TCP活IPC的服务器和客户端;</p>
+<p>TCP与ICP的异同：</p>
+<ul>
+<li>TCP/IP-传输控制协议/网际协议地址；可在同一台机器或不同机器或不同操作系统的进程间进行通信；</li>
+<li>IPC (Inter Process Communication) 即进程间通信；不能跨物理机器，只能在同一台机器上的不同进程间进行通信;</li>
+</ul>
+<p>再者node中http,https等模块的 Server继承了net.Serve，net是web服务的核心内容。<br>net模块分为</p>
+<ul>
+<li>Server – net.createServer()返回(服务端)</li>
+<li>Socket – net.createConnection(返回)(客户端)</li>
+</ul>
+<p>net.Socket(net.createConnection()返回)：tcp/本地 socket的node版实现，它实现了全双工的stream接口。在node中,基本流的事件都会有data, error, end, close 事件, write()方法等. </p>
+<a id="more"></a>
+<h4 id="简单例子"><a href="#简单例子" class="headerlink" title="简单例子"></a>简单例子</h4><ul>
+<li>Server 常用事件 connection(socket连接成功触发),close(关闭的时候触发), error(异常触发), 方法listen()</li>
+<li>Socket 常用事件 connect(socket 连接成功建立),data(接收数据触发), end(另一端socket使用end()方法触发),close(关闭的时候触发),  error(异常触发),</li>
+</ul>
+<p>下面例子会依次触发</p>
+<ol>
+<li>服务器connection事件 链接成功</li>
+<li>客户端connect成功</li>
+<li>客户端接收服务器数据 123(另一端write()方法执行将触发data事件)</li>
+<li>客户端接收服务器数据 链接成功这里是服务器say Hello(另一端write()方法执行将触发data事件)</li>
+<li>客户端接收完成服务器数据 123链接成功这里是服务器say Hello</li>
+<li>close事件：客户端关闭</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">const net &#x3D; require(&#39;net&#39;);</span><br><span class="line">const server &#x3D; net.createServer();</span><br><span class="line">const port &#x3D; 8888;</span><br><span class="line">const host &#x3D; &#39;127.0.0.1&#39;;</span><br><span class="line">&#x2F;&#x2F;当一个 socket 连接成功建立的时候触发该事件</span><br><span class="line">server.on(&#39;connection&#39;,(socket)&#x3D;&gt;&#123;</span><br><span class="line">    console.log(&#39;服务器connection事件 链接成功&#39;);</span><br><span class="line">    socket.write(&quot;1&quot;);</span><br><span class="line">    socket.write(&quot;2&quot;);</span><br><span class="line">    socket.write(&quot;3&quot;);</span><br><span class="line">    setTimeout(()&#x3D;&gt; &#123;</span><br><span class="line">        socket.end(&#39;链接成功这里是服务器say Hello&#39;);</span><br><span class="line">    &#125;,1000)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F; server 关闭的时候触发。 如果有连接存在，直到所有的连接结束才会触发这个事件。</span><br><span class="line">server.on(&#39;close&#39;, function()&#123;</span><br><span class="line">    console.log( &#39;close事件：服务端关闭&#39; );</span><br><span class="line">&#125;);</span><br><span class="line">server.on(&#39;error&#39;, function(error)&#123;</span><br><span class="line">    console.log( &#39;error事件：服务端异常：&#39; + error.message );</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; tcp服务端</span><br><span class="line">server.listen(port, host, function()&#123;</span><br><span class="line">    const &#123;address, port&#125; &#x3D; server.address();</span><br><span class="line">    console.log(&#96;监听$&#123;address&#125;:$&#123;port&#125;&#96;)</span><br><span class="line">    </span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F;客户端</span><br><span class="line">let data &#x3D; &#39;&#39;;</span><br><span class="line">const client &#x3D; net.createConnection(port, host);</span><br><span class="line">client.on(&#39;connect&#39;, ()&#x3D;&gt; &#123;</span><br><span class="line">    console.log(&#39;客户端connect成功&#39;);</span><br><span class="line">&#125;)</span><br><span class="line">client.on(&#39;data&#39;, function(chunk)&#123;</span><br><span class="line">    data +&#x3D; chunk.toString();</span><br><span class="line">    console.log( &#39;客户端接收服务器数据&#39;,  chunk.toString());</span><br><span class="line">&#125;);</span><br><span class="line">client.on(&#39;end&#39;, function()&#123;</span><br><span class="line">    console.log( &#39;客户端接收完成服务器数据&#39;,  data);</span><br><span class="line">&#125;);</span><br><span class="line">client.on(&#39;close&#39;, function()&#123;</span><br><span class="line">    console.log( &#39;close事件：客户端关闭&#39; );</span><br><span class="line">&#125;);</span><br><span class="line">client.on(&#39;error&#39;, function(error)&#123;</span><br><span class="line">    console.log( &#39;error事件：客户端异常：&#39; + error.message );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>通过这个简单例子大致了解到一个简单通信流程, 我们会发现服务器close事件没有触发, 是因为如果有连接存在，直到所有的连接结束才会触发这个事件。close事件注意:</p>
+<ul>
+<li>已调用server.listen()：正常关闭，close事件触发，然后callback执行，error参数为undefined</li>
+<li>未调用server.listen()：异常关闭，close事件触发，然后callback执行，error为具体的错误信息。（注意，error 事件没有触发）</li>
+</ul>
+<h4 id="利用net模块简单做一个聊天程序"><a href="#利用net模块简单做一个聊天程序" class="headerlink" title="利用net模块简单做一个聊天程序"></a>利用net模块简单做一个聊天程序</h4><p>net模块可以做一个类似聊天群发消息程序, 我们启动服务之后, 客户端每次连接后会触发服务端connection事件,我们把连接socket存起来sockets数组, 然后通过循环sockets并且socket.write()写入信息后, 那么client端会触发data事件接收. 同理client端同样用write方法, 服务端也可以通过data事件接收,这样就实现群发功能.  当然如果需要做指定人员聊天, 还需要给连接socket指定唯一id, 通过该id找到指定socket发送信息, 这里就不实现了.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">const net &#x3D; require(&#39;net&#39;);</span><br><span class="line">const server &#x3D; net.createServer();</span><br><span class="line">const port &#x3D; 8888;</span><br><span class="line">const host &#x3D; &#39;127.0.0.1&#39;;</span><br><span class="line">&#x2F;&#x2F;当一个 socket 连接成功建立的时候触发该事件</span><br><span class="line">const sockets &#x3D; [];</span><br><span class="line">let i  &#x3D; 1;</span><br><span class="line">server.on(&#39;connection&#39;,(socket)&#x3D;&gt;&#123;</span><br><span class="line">    console.log(&#39;服务器connection事件 链接成功&#39;);</span><br><span class="line">    socket.id &#x3D; i;</span><br><span class="line">    sockets.push(socket)</span><br><span class="line">    i++;</span><br><span class="line">    for(let so of sockets) &#123;</span><br><span class="line">        if(socket.id !&#x3D;&#x3D; so.id) &#123;</span><br><span class="line">            so.write(&#96;用户id:$&#123;socket.id&#125; 进入\n&#96;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    socket.on(&#39;data&#39;, chunk &#x3D;&gt; &#123;</span><br><span class="line">        for(let so of sockets) &#123;</span><br><span class="line">            if(socket.id !&#x3D;&#x3D; so.id) &#123;</span><br><span class="line">                so.write(&#96;$&#123;chunk.toString()&#125;\n&#96;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; server 关闭的时候触发。 如果有连接存在，直到所有的连接结束才会触发这个事件。</span><br><span class="line">server.on(&#39;close&#39;, function(error)&#123;</span><br><span class="line">    if(error) &#123;</span><br><span class="line">        console.log( &#39;异常错误导致close事件：服务端关闭&#39;+ error.message );</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    console.log( &#39;close事件：服务端关闭&#39; );</span><br><span class="line">    </span><br><span class="line">&#125;);</span><br><span class="line">server.on(&#39;error&#39;, function(error)&#123;</span><br><span class="line">    console.log( &#39;error事件：服务端异常：&#39; + error.message );</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; tcp服务端</span><br><span class="line">server.listen(port, host, function()&#123;</span><br><span class="line">    const &#123;address, port&#125; &#x3D; server.address();</span><br><span class="line">    console.log(&#96;监听$&#123;address&#125;:$&#123;port&#125;&#96;)</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F;客户端length</span><br><span class="line">let data &#x3D; &#39;&#39;;</span><br><span class="line">let clients &#x3D; [];</span><br><span class="line"></span><br><span class="line">function startConnect() &#123;</span><br><span class="line">    for(let i &#x3D; 0; i&lt; 5; i++)&#123;</span><br><span class="line">        const client &#x3D; net.createConnection(port, host);</span><br><span class="line">        clients.push(client)</span><br><span class="line">    &#125;</span><br><span class="line">    for(let client of clients) &#123;</span><br><span class="line">        client.on(&#39;connect&#39;, ()&#x3D;&gt; &#123;</span><br><span class="line">            console.log(&#39;客户端connect成功&#39;);</span><br><span class="line">        &#125;)</span><br><span class="line">        client.on(&#39;data&#39;, function(chunk)&#123;</span><br><span class="line">            data +&#x3D; chunk.toString();</span><br><span class="line">            console.log( &#39;客户端接收服务器数据\n&#39;,  chunk.toString());</span><br><span class="line">        &#125;);</span><br><span class="line">        client.on(&#39;close&#39;, function()&#123;</span><br><span class="line">            console.log( &#39;close事件：客户端关闭&#39; );</span><br><span class="line">        &#125;);</span><br><span class="line">        client.on(&#39;error&#39;, function(error)&#123;</span><br><span class="line">            console.log( &#39;error事件：客户端异常：&#39; + error.message );</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function quitConnect() &#123;</span><br><span class="line">    for(const client of clients) &#123;</span><br><span class="line">        client.end()</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(&#39;已取消所有连接&#39;);</span><br><span class="line">&#125;</span><br><span class="line">function send(data) &#123;</span><br><span class="line">    for(const client of clients) &#123;</span><br><span class="line">        client.write(data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">process.stdin.on(&#39;data&#39;, function(data)&#123;</span><br><span class="line">    const input &#x3D; data.toString().trim().toLowerCase()</span><br><span class="line">    if(input &#x3D;&#x3D;&#x3D; &#39;start&#39;) &#123;</span><br><span class="line">        startConnect()</span><br><span class="line">    &#125; else if (input &#x3D;&#x3D;&#x3D; &#39;quit&#39;)&#123;</span><br><span class="line">		console.log(&#39;quitting&#39;);</span><br><span class="line">		quitConnect();</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">        send(input);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/06/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-net%E6%A8%A1%E5%9D%97-6/" data-id="ck6btb8ud0000i8syfwqc4yii"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/02/07/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-http%E6%A8%A1%E5%9D%97-7/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Nodejs学习笔记-http模块(7)-附原生表单上传代码
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/02/03/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-stream%E6%A8%A1%E5%9D%97-5/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Nodejs学习笔记-stream模块(5)</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: '',
+        app_key: '',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2015-2020
+        zjy
+      </li>
+      <li>
+        
+          Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>PV:<span id="busuanzi_value_page_pv"></span></li>
+  <li>UV:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    
+    <aside class="sidebar">
+      
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="ZJY Blog Share"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">目录</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/%E9%A1%B9%E7%9B%AE/index.html">视频</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about/index.html">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  
+  
+  </div>
+</body>
+
+</html>

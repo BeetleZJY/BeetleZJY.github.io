@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-02-05T16:13:38.654Z</updated>
+  <updated>2020-02-08T16:17:06.170Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,21 +17,48 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Nodejs学习笔记-http模块(6)</title>
-    <link href="http://yoursite.com/2020/02/05/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-http%E6%A8%A1%E5%9D%97-6/"/>
-    <id>http://yoursite.com/2020/02/05/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-http%E6%A8%A1%E5%9D%97-6/</id>
-    <published>2020-02-05T06:53:54.000Z</published>
-    <updated>2020-02-05T16:13:38.654Z</updated>
+    <title>Nodejs学习笔记-http模块(7)-附原生表单上传代码</title>
+    <link href="http://yoursite.com/2020/02/07/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-http%E6%A8%A1%E5%9D%97-7/"/>
+    <id>http://yoursite.com/2020/02/07/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-http%E6%A8%A1%E5%9D%97-7/</id>
+    <published>2020-02-07T07:05:18.000Z</published>
+    <updated>2020-02-08T16:17:06.170Z</updated>
     
     <summary type="html">
     
-      &lt;h4 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h4&gt;&lt;p&gt;http模块是nodejs核心模块, 其内部封装了高效的 http 服务器 和 http 客户端, 可以由简单几行代码构建简单的迷你服务器.&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;const http &amp;#x3D; require(&amp;#39;http&amp;#39;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;http.createServer((req, res) &amp;#x3D;&amp;gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    res.writeHead(200,&amp;#123;&amp;#39;content-type&amp;#39;:  &amp;quot;text&amp;#x2F;html; charset&amp;#x3D;utf-8&amp;quot;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    res.end(&amp;#39;&amp;lt;h3&amp;gt;测试服务器创建成功&amp;lt;h3&amp;gt;&amp;#39;,&amp;#39;utf-8&amp;#39;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;).listen(8888,()&amp;#x3D;&amp;gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    console.info(&amp;#39;监听接口8888,服务器已启动&amp;#39;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;http 模块提供两种使用方式：&lt;/p&gt;
+      &lt;h4 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h4&gt;&lt;p&gt;http模块是常用的核心模块, 继承了net模块的实例, 如果了解net模块基本http模块知识是差别不大的.下面我们从两个方面进行学习:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;作为服务端使用时，创建一个 HTTP 服务器，监听 HTTP 客户端请求并返回响应。&lt;/li&gt;
-&lt;li&gt;作为客户端使用时，发起一个 HTTP 客户端请求，获取服务端响应。&lt;/li&gt;
+&lt;li&gt;服务器server：http.createServer()&lt;/li&gt;
+&lt;li&gt;客户端client：http.get()/http.request()&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h4 id=&quot;http-Server类&quot;&gt;&lt;a href=&quot;#http-Server类&quot; class=&quot;headerlink&quot; title=&quot;http.Server类&quot;&gt;&lt;/a&gt;http.Server类&lt;/h4&gt;&lt;p&gt;下面有http.createServer()创建一个简单的服务器,返回是server类, 我们发现基本方法会和net模块net.createServer()一样.&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Nodejs学习笔记-net模块(6)</title>
+    <link href="http://yoursite.com/2020/02/06/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-net%E6%A8%A1%E5%9D%97-6/"/>
+    <id>http://yoursite.com/2020/02/06/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-net%E6%A8%A1%E5%9D%97-6/</id>
+    <published>2020-02-06T12:47:33.000Z</published>
+    <updated>2020-02-07T07:04:03.539Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h4&gt;&lt;p&gt;net模块是同样是nodejs的核心模块, 是用于创建基于流的TCP活IPC的服务器和客户端;&lt;/p&gt;
+&lt;p&gt;TCP与ICP的异同：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;TCP/IP-传输控制协议/网际协议地址；可在同一台机器或不同机器或不同操作系统的进程间进行通信；&lt;/li&gt;
+&lt;li&gt;IPC (Inter Process Communication) 即进程间通信；不能跨物理机器，只能在同一台机器上的不同进程间进行通信;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;再者node中http,https等模块的 Server继承了net.Serve，net是web服务的核心内容。&lt;br&gt;net模块分为&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Server – net.createServer()返回(服务端)&lt;/li&gt;
+&lt;li&gt;Socket – net.createConnection(返回)(客户端)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;net.Socket(net.createConnection()返回)：tcp/本地 socket的node版实现，它实现了全双工的stream接口。在node中,基本流的事件都会有data, error, end, close 事件, write()方法等. &lt;/p&gt;
     
     </summary>
     
