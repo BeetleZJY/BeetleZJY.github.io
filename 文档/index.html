@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    文档 |  ZJY Blog Share
+    判官笔前端-文档 |  ZJY Blog Share
   </title>
   
   <link rel="shortcut icon" href="/favicon.ico" />
@@ -41,7 +41,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  文档
+  判官笔前端-文档
 </h1>
   
 
@@ -59,7 +59,37 @@
       
 
       
-      
+      <h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>判官笔前端系统是基于国外pantom精灵自动运维系统开发. 在保留后台服务基础上, 剥离核心的可视化api操作,  重新基于vue 和 elementUI构建。它使用了最新的前端技术栈，实现前端控制动态路由，权限验证.</p>
+<p>该系统基于前后端分离架构, 前端需要你掌握的知识:</p>
+<ol>
+<li>vue–大名鼎鼎vue</li>
+<li>vuex–vue的状态管理器</li>
+<li>elementUI–饿了么的UI</li>
+<li>webpack–ebpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)</li>
+<li>backbone.js-旧版本精灵前端搭建的前端框架, 经典MVC架构</li>
+<li>mock.js-数据模拟</li>
+<li>nginx–静态服务器部署</li>
+<li>restful接口规则</li>
+<li>nodejs</li>
+</ol>
+<p>以上知识默认你掌握, 本文档不会科普上面内容, 主要介绍判官笔系统一些基本操作和功能</p>
+<h4 id="下载源码文件"><a href="#下载源码文件" class="headerlink" title="下载源码文件"></a>下载源码文件</h4><ol>
+<li>打开团队的onemate, 里面有判官笔的压缩包, download下来;</li>
+<li>或者打开我们内部gitee网站,上面有我们的源码, 里面有一个panguanbi-web把源文件download下来(由于目前在外网无法接入, 该网址需要找冕哥提供)</li>
+<li>如果通过onemate下来的无需要下载npm包,里面已经有所有的包, 如果从内部gitee网站需要另行下载包.</li>
+<li>如果使用之前前端开发的安全pc可以直接打开d盘搜索pangguanbi打开目录就是源码.</li>
+</ol>
+<h4 id="安装Nodejs和npm包"><a href="#安装Nodejs和npm包" class="headerlink" title="安装Nodejs和npm包"></a>安装Nodejs和npm包</h4><ol>
+<li><p>nodejs可以在内部环境下载或者到官网下载(搜索nodejs), 另外如果是需要下载npm包因为华为内部网络问题, 我们需要重新设置镜像源, 如果不清楚npm代理意思可以百度下.</p>
+</li>
+<li><p>如果使用之前前端开发的安全pc可以跳过, 环境已配置好. 但是可能需要你重新设置代理的账户名称</p>
+</li>
+</ol>
+<p>打开华为云镜像<a href="https://mirrors.huaweicloud.com/" target="_blank" rel="noopener">华为云镜像</a>, 搜索nodejs点击查看教程.然后打开命令行输入下面内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry https:&#x2F;&#x2F;mirrors.huaweicloud.com&#x2F;repository&#x2F;npm&#x2F;</span><br><span class="line">npm config set disturl https:&#x2F;&#x2F;mirrors.huaweicloud.com&#x2F;nodejs</span><br><span class="line">npm config set sass_binary_site https:&#x2F;&#x2F;mirrors.huaweicloud.com&#x2F;node-sass</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;如果华为内部网络npm无法下载可能需要设置代理</span><br><span class="line">npm config set proxy&#x3D;http:&#x2F;&#x2F;mirrors.huaweicloud.com&#x2F;npm-software&#x2F;</span><br><span class="line">npm config set registry&#x3D;https:&#x2F;&#x2F;mirrors.huaweicloud.com&#x2F;npm-software&#x2F;</span><br><span class="line">&#x2F;&#x2F;另外好需要你设置代理用户名和账号 username对应域账号, password对应域密码,</span><br><span class="line">&#x2F;&#x2F; server对应你的ip地址, port对应你的端口 具体设置成为自己的代理和端口</span><br><span class="line">npm config set proxy http:&#x2F;&#x2F;username:password@server:port</span><br><span class="line">npm confit set https-proxy http:&#x2F;&#x2F;username:password@server:port</span><br></pre></td></tr></table></figure>
+
+<h4 id="测试环境设置代理"><a href="#测试环境设置代理" class="headerlink" title="测试环境设置代理"></a>测试环境设置代理</h4><p>因为判官笔的原后台系统安装安全pc的vmware的linux系统, 接口需要sock5代理到虚拟机环境接口. 请安装proxifer</p>
+
       
       <!-- 打赏 -->
       

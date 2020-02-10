@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-02-09T15:38:05.950Z</updated>
+  <updated>2020-02-10T14:26:35.536Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,17 +21,17 @@
     <link href="http://yoursite.com/2020/02/09/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-https%E6%A8%A1%E5%9D%97-8/"/>
     <id>http://yoursite.com/2020/02/09/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-https%E6%A8%A1%E5%9D%97-8/</id>
     <published>2020-02-09T07:24:58.000Z</published>
-    <updated>2020-02-09T15:38:05.950Z</updated>
+    <updated>2020-02-10T14:26:35.536Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h4 id=&quot;简介http和https&quot;&gt;&lt;a href=&quot;#简介http和https&quot; class=&quot;headerlink&quot; title=&quot;简介http和https&quot;&gt;&lt;/a&gt;简介http和https&lt;/h4&gt;&lt;p&gt;http协议:
-        
-      
+      &lt;h4 id=&quot;简介http和https&quot;&gt;&lt;a href=&quot;#简介http和https&quot; class=&quot;headerlink&quot; title=&quot;简介http和https&quot;&gt;&lt;/a&gt;简介http和https&lt;/h4&gt;&lt;p&gt;http协议: HTTP是互联网上应用最为广泛的一种网络协议，客户端和服务端该连接是通过TCP 来完成的。HTTP是采用明文形式进行数据传输，极易被不法份子窃取和篡改。&lt;/p&gt;
+&lt;p&gt;https协议: 简单来说, HTTPS是在HTTP上建立SSL加密层，并对传输数据进行加密. 主要从数据进行加密和对网站服务器进行真实身份认证作为安全手段。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;网站服务器进行真实身份认证就需要用到CA证书: 它的作用就是提供证书（即服务器证书，由域名、公司信息、序列号和签名信息组成）加强服务端和客户端之间信息交互的安全性&lt;/li&gt;
+&lt;li&gt;加密算法&lt;ul&gt;
+&lt;li&gt;对称加密: 发送方和接收方需要持有同一把密钥，发送消息和接收消息均使用该密钥。&lt;/li&gt;
+&lt;li&gt;非对称加密: 接收方在发送消息前需要事先生成公钥和私钥，然后将公钥发送给发送方。发送放收到公钥后，将待发送数据用公钥加密，发送给接收方。接收到收到数据后，用私钥解密。在这个过程中，公钥负责加密，私钥负责解密，数据在传输过程中即使被截获，攻击者由于没有私钥，因此也无法破解。
     
     </summary>
     
@@ -245,7 +245,7 @@
     <link href="http://yoursite.com/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-3/"/>
     <id>http://yoursite.com/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-3/</id>
     <published>2020-01-05T05:56:04.000Z</published>
-    <updated>2020-01-06T15:40:35.465Z</updated>
+    <updated>2020-02-10T09:56:52.344Z</updated>
     
     <summary type="html">
     
@@ -263,7 +263,7 @@
     <link href="http://yoursite.com/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-2/"/>
     <id>http://yoursite.com/2020/01/05/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-2/</id>
     <published>2020-01-05T03:51:18.000Z</published>
-    <updated>2020-01-05T05:53:44.369Z</updated>
+    <updated>2020-02-10T09:55:55.939Z</updated>
     
     <summary type="html">
     
@@ -283,7 +283,7 @@
     <link href="http://yoursite.com/2020/01/02/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-1/"/>
     <id>http://yoursite.com/2020/01/02/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%92%B8Hexo%E5%8D%9A%E5%AE%A2-1/</id>
     <published>2020-01-02T15:25:00.000Z</published>
-    <updated>2020-01-06T15:42:52.607Z</updated>
+    <updated>2020-02-10T09:56:20.476Z</updated>
     
     <summary type="html">
     

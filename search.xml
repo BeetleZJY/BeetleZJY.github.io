@@ -5,7 +5,15 @@
     <url>/2020/02/09/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-https%E6%A8%A1%E5%9D%97-8/</url>
     <content><![CDATA[<h4 id="简介http和https"><a href="#简介http和https" class="headerlink" title="简介http和https"></a>简介http和https</h4><p>http协议: HTTP是互联网上应用最为广泛的一种网络协议，客户端和服务端该连接是通过TCP 来完成的。HTTP是采用明文形式进行数据传输，极易被不法份子窃取和篡改。</p>
 <p>https协议: 简单来说, HTTPS是在HTTP上建立SSL加密层，并对传输数据进行加密. 主要从数据进行加密和对网站服务器进行真实身份认证作为安全手段。</p>
-<p>1.网站服务器进行真实身份认证就需要用到CA证书</p>
+<ol>
+<li>网站服务器进行真实身份认证就需要用到CA证书: 它的作用就是提供证书（即服务器证书，由域名、公司信息、序列号和签名信息组成）加强服务端和客户端之间信息交互的安全性</li>
+<li>加密算法<ul>
+<li>对称加密: 发送方和接收方需要持有同一把密钥，发送消息和接收消息均使用该密钥。</li>
+<li>非对称加密: 接收方在发送消息前需要事先生成公钥和私钥，然后将公钥发送给发送方。发送放收到公钥后，将待发送数据用公钥加密，发送给接收方。接收到收到数据后，用私钥解密。在这个过程中，公钥负责加密，私钥负责解密，数据在传输过程中即使被截获，攻击者由于没有私钥，因此也无法破解。<a id="more"></a>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4>待更新…</li>
+</ul>
+</li>
+</ol>
 ]]></content>
   </entry>
   <entry>
@@ -423,7 +431,7 @@
 <p>密码保护<br>打开setting，点击Setup authentification here输入用户名，密码，密钥，下面会自动生成配置文件，复制加在hexo根目录下的_config.yml中：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">admin:</span><br><span class="line"> username: myfavoritename</span><br><span class="line"> password_hash: be121740bf988b2225a313fa1f107ca1</span><br><span class="line"> secret: a secret something</span><br></pre></td></tr></table></figure>
 <p>重启hexo，就可以看到登录页面了</p>
-<h3 id="编辑"><a href="#编辑" class="headerlink" title="编辑"></a>编辑</h3><p>我们进入admin界面就可以开始编辑自己博客内容了,点击New Post 输入你的标题让背后进行编辑。基本语法就是markdown 语法类型<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo10.png" alt="avatar"></p>
+<h3 id="编辑"><a href="#编辑" class="headerlink" title="编辑"></a>编辑</h3><p>我们进入admin界面就可以开始编辑自己博客内容了,点击New Post 输入你的标题让背后进行编辑。基本语法就是markdown 语法类型<br><img src="http://cdn.zhanlongshang.top/hexo10.png" alt="avatar"></p>
 <h4 id="markdown实例"><a href="#markdown实例" class="headerlink" title="markdown实例"></a>markdown实例</h4><h5 id="1-标题"><a href="#1-标题" class="headerlink" title="1 标题"></a>1 标题</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这是一级标题</span></span><br><span class="line"><span class="comment">## 这是二级标题</span></span><br><span class="line"><span class="comment">### 这是三级标题</span></span><br><span class="line"><span class="comment">#### 这是四级标题</span></span><br><span class="line"><span class="comment">##### 这是五级标题</span></span><br><span class="line"><span class="comment">###### 这是六级标题</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="这是一级标题"><a href="#这是一级标题" class="headerlink" title="这是一级标题"></a>这是一级标题</h1><h2 id="这是二级标题"><a href="#这是二级标题" class="headerlink" title="这是二级标题"></a>这是二级标题</h2><h3 id="这是三级标题"><a href="#这是三级标题" class="headerlink" title="这是三级标题"></a>这是三级标题</h3><h4 id="这是四级标题"><a href="#这是四级标题" class="headerlink" title="这是四级标题"></a>这是四级标题</h4><h5 id="这是五级标题"><a href="#这是五级标题" class="headerlink" title="这是五级标题"></a>这是五级标题</h5><h6 id="这是六级标题"><a href="#这是六级标题" class="headerlink" title="这是六级标题"></a>这是六级标题</h6><h5 id="2-字体"><a href="#2-字体" class="headerlink" title="2 字体"></a>2 字体</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">**这是加粗的文字**</span><br><span class="line">*这是倾斜的文字*`</span><br><span class="line">***这是斜体加粗的文字***</span><br><span class="line">~~这是加删除线的文字~~</span><br></pre></td></tr></table></figure>
@@ -538,17 +546,17 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/Shen-Yu/hexo-theme-ayer.git themes/ayer</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>这里可能由于国内环境github访问很慢，导致下载不了或者下载非常慢。我这里提供两个方案</p>
-<h4 id="方案1"><a href="#方案1" class="headerlink" title="方案1"></a>方案1</h4><p>1.通过绕过DNS解析，直接在本地绑定host：<br>打开 <a href="http://tool.chinaz.com/dns，" target="_blank" rel="noopener">http://tool.chinaz.com/dns，</a> 我们输入github.com<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo1.jpg" alt="avatar"></p>
-<p>2.点击搜索，选择值最小的ip<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo2.png" alt="avatar"></p>
-<p>3.接着我们打开本地电脑的C:\Windows\System32\drivers\etc目录，找到hosts文件，请用笔记本打开或者IDE打开，如下图所示：<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo3.jpg" alt="avatar"></p>
-<p>4.添加你选择的ip到host文件最下面一行，注意有些因为权限问题无法保存。请在编辑前右键host权限开发所有写入权限<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo4.png" alt="avatar"></p>
-<p>5.验证是否成功：命令提示符中输入ping github.com，此时可以ping通github域名。我这边ping还是显示超时，证明该方法不是具有普遍性，但是进入github网站的确是快了很多。当然有些博主ping访问时没有问题的。<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo5.png" alt="avatar"></p>
+<h4 id="方案1"><a href="#方案1" class="headerlink" title="方案1"></a>方案1</h4><p>1.通过绕过DNS解析，直接在本地绑定host：<br>打开 <a href="http://tool.chinaz.com/dns，" target="_blank" rel="noopener">http://tool.chinaz.com/dns，</a> 我们输入github.com<br><img src="http://cdn.zhanlongshang.top/hexo1.jpg" alt="avatar"></p>
+<p>2.点击搜索，选择值最小的ip<br><img src="http://cdn.zhanlongshang.top/hexo2.png" alt="avatar"></p>
+<p>3.接着我们打开本地电脑的C:\Windows\System32\drivers\etc目录，找到hosts文件，请用笔记本打开或者IDE打开，如下图所示：<br><img src="http://cdn.zhanlongshang.top/hexo3.jpg" alt="avatar"></p>
+<p>4.添加你选择的ip到host文件最下面一行，注意有些因为权限问题无法保存。请在编辑前右键host权限开发所有写入权限<br><img src="http://cdn.zhanlongshang.top/hexo4.png" alt="avatar"></p>
+<p>5.验证是否成功：命令提示符中输入ping github.com，此时可以ping通github域名。我这边ping还是显示超时，证明该方法不是具有普遍性，但是进入github网站的确是快了很多。当然有些博主ping访问时没有问题的。<br><img src="http://cdn.zhanlongshang.top/hexo5.png" alt="avatar"></p>
 <h4 id="方案2-推荐"><a href="#方案2-推荐" class="headerlink" title="方案2(推荐)"></a>方案2(推荐)</h4><p>1.登录码云，新建码云库：<a href="https://gitee.com/projects/new，" target="_blank" rel="noopener">https://gitee.com/projects/new，</a> 没有就注册下，很容易</p>
-<p>2.新建仓库，导入你clone代码 <a href="https://github.com/Shen-Yu/hexo-theme-ayer.git" target="_blank" rel="noopener">https://github.com/Shen-Yu/hexo-theme-ayer.git</a> themes/ayer 或者你喜欢的主题<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo6.png" alt="avatar"></p>
-<p>3.创建仓库<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo7.png" alt="avatar"></p>
+<p>2.新建仓库，导入你clone代码 <a href="https://github.com/Shen-Yu/hexo-theme-ayer.git" target="_blank" rel="noopener">https://github.com/Shen-Yu/hexo-theme-ayer.git</a> themes/ayer 或者你喜欢的主题<br><img src="http://cdn.zhanlongshang.top/hexo6.png" alt="avatar"></p>
+<p>3.创建仓库<br><img src="http://cdn.zhanlongshang.top/hexo7.png" alt="avatar"></p>
 <p>4.之后操作就跟github操作一样， 用git bash clone 对应码云的代码下载即可</p>
-<h3 id="切换主题"><a href="#切换主题" class="headerlink" title="切换主题"></a>切换主题</h3><p>如果按照我的方式这时候主题的目录文件应该在themes下面，我们这时候改下目录名称重命名改为ayer<br>这时候我们在根目录找到_config.yml文件<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo8.png" alt="avatar"></p>
-<p>默认主题是landscape， 我们改为ayer<br><img src="http://q3mbriqrc.bkt.clouddn.com/hexo9.png" alt="avatar"></p>
+<h3 id="切换主题"><a href="#切换主题" class="headerlink" title="切换主题"></a>切换主题</h3><p>如果按照我的方式这时候主题的目录文件应该在themes下面，我们这时候改下目录名称重命名改为ayer<br>这时候我们在根目录找到_config.yml文件<br><img src="http://cdn.zhanlongshang.top/hexo8.png" alt="avatar"></p>
+<p>默认主题是landscape， 我们改为ayer<br><img src="http://cdn.zhanlongshang.top/hexo9.png" alt="avatar"></p>
 <p>更改后重新启动服务 hexo g 这时候你就到跟我一样主题效果了。</p>
 ]]></content>
   </entry>
@@ -623,7 +631,7 @@
 
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: </span><br><span class="line">    <span class="comment"># github: https://github.com/YourgithubName/YourgithubName.github.io.git,master</span></span><br><span class="line">    gitee:  https://gitee.com//yourname.git,master //这里选取你建立的仓库跟你的名字是一样</span><br></pre></td></tr></table></figure>
 <p> 5.上传<br> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure><br> 6.启动服务器</p>
-<p> 点击上面下面服务，点击Gitee Pages, 然后进入界面按启动就好。之后打开网站就可以看到网站了。<br> <img src="http://q3mbriqrc.bkt.clouddn.com/hexo12.png" alt="avatar"></p>
+<p> 点击上面下面服务，点击Gitee Pages, 然后进入界面按启动就好。之后打开网站就可以看到网站了。<br> <img src="http://cdn.zhanlongshang.top/hexo12.png" alt="avatar"></p>
 ]]></content>
   </entry>
 </search>
